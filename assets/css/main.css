@@ -3344,4 +3344,38 @@ input, select, textarea {
 	}
 
 
+   .bildergalerie {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .bildergalerie figure {
+    /*max-width: 400px;*/
+    margin: 0;
+    text-align: center;
+  }
+
+  .bildergalerie img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px #ffffff;
+  }
+
+  .bildergalerie figcaption {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-top: 8px;
+	font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .bildergalerie figure {
+      max-width: 100%;
+    }
+  }
+
+
 

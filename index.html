@@ -37,6 +37,7 @@
 								<li><a class="navHideOnUnlock" href="#tipps">Tipps</a></li>
 								<li><a class="geheimNav" style="visibility: hidden;" href="#sq2023">SQ2023</a></li>
 								<li><a class="geheimNav" style="visibility: hidden;" href="#anmeldung">Zu-/Absage</a></li>
+								<li><a class="geheimNav" style="visibility: hidden;" href="#food">Mitbringliste</a></li>
 								<li><a href="#contact">Contact</a></li>
 								<li><a href="#elements">Elements</a></li>
 							</ul>
@@ -49,11 +50,53 @@
 						<article class="geheimContent" id="sq2023">
 							<h2>Eindrücke vom Domnitzer Sommerquiz 2023</h2>
 							<p>Diese Seite soll Bilder vom Sommerquiz 2023 enthalten.</p>
+							<div id="gallery-sq2023" class="bildergalerie"></div>
 						</article>
+
+						<script>
+							// Bildpfade + Untertitel als Objekte
+							const bilder2023 = [
+								{ src: 'images/IMG_3807_ergebnis.jpg', caption: 'Der Start des Sommerquiz 2023' },
+								{ src: 'images/IMG_3807_ergebnis.jpg', caption: 'Spannung in der Halbzeit' },
+								{ src: 'images/IMG_3807_ergebnis.jpg', caption: 'Siegerfoto bei Sonnenuntergang' }
+								// Weitere Bilder ergänzen
+							];
+
+							const galerie = document.getElementById('gallery-sq2023');
+
+							bilder2023.forEach(({ src, caption }) => {
+								const figure = document.createElement('figure');
+
+								const img = document.createElement('img');
+								img.src = src;
+								img.alt = caption;
+
+								const figcaption = document.createElement('figcaption');
+								figcaption.textContent = caption;
+
+								figure.appendChild(img);
+								figure.appendChild(figcaption);
+								galerie.appendChild(figure);
+							});
+							</script>
 
 						<article class="geheimContent" id="anmeldung">
 							<h2>Zusage / Absage</h2>
 							<p>Diese Seite soll die Zu-/Absage ermöglichen. (siehe ChatGPT mit Formsubmit)</p>
+							<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScf1RtpQH-MzZzrJ9ouiyrZlGXHHHJbnhhVAWsRSTRZzu-zvA/viewform?embedded=true" width="640" height="502" frameborder="0" marginheight="0" marginwidth="0">Wird geladen…</iframe>
+						</article>
+
+						<article class="geheimContent" id="food">
+							<h2>Mitbringliste fürs Sommerquiz</h2>
+							<p>Trag dich ein, wenn du etwas mitbringen möchtest:</p>
+
+							<!-- Google Form -->
+							<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc4Zf7Bws5Skgw2fP26AawCE4F8iv-RlYPucPeglNcA6f3l-w/viewform?embedded=true" width="100%" height="500" frameborder="0">Wird geladen…</iframe>
+
+							<h3>Bisherige Einträge</h3>
+							
+							<!-- Öffentliche Tabelle -->
+							<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqkHmUszxqCtvEUcZ1oCRb1XqCdz3OKQ0tYfSg80589roZZFx4BDP0sIxBRThrYI97A087y7QreFu/pubhtml?widget=true&amp;headers=false" width="90%" height="500" frameborder="0"></iframe>
 						</article>
 
 						<!-- Intro -->
