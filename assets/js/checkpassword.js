@@ -48,6 +48,9 @@ document.getElementById("checkPasswordButton").addEventListener("click", functio
         // Text auf Startseite ändern
         document.getElementById("headline").textContent = "Willkommen!";
         document.getElementById("introText").textContent = "Du hast das richtige Passwort eingegeben. Viel Spaß beim Erkunden!";
+        
+        // Seitengröße hat sich geändert, daher muss zu dem Inhalt gescrollt werden
+        document.getElementById("password").scrollIntoView({ behavior: "smooth" });
 
     } else {
         const randomIndex = Math.floor(Math.random() * errorMessages.length);
