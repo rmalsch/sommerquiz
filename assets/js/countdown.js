@@ -1,16 +1,16 @@
 const countdownEvents = [
     {
-        time: new Date("May 24, 2025 15:00:00").getTime(),
+        time: new Date("July 5, 2025 12:00:00").getTime(),
         buttonId: "revealButton1",
         textId: "hiddenTextField1"
     },
     {
-        time: new Date("May 25, 2025 10:00:00").getTime(),
+        time: new Date("July 12, 2025 12:00:00").getTime(),
         buttonId: "revealButton2",
         textId: "hiddenTextField2"
     },
     {
-        time: new Date("May 26, 2025 18:30:00").getTime(),
+        time: new Date("July 19, 2025 12:00:00").getTime(),
         buttonId: "revealButton3",
         textId: "hiddenTextField3"
     }
