@@ -1060,7 +1060,7 @@ input, select, textarea {
 			body, input, select, textarea {
 				color: #ffffff;
 				font-family: "Source Sans Pro", sans-serif;
-				font-weight: 300;
+				font-weight: 500;
 				font-size: 1rem;
 				line-height: 1.65;
 			}
@@ -2091,7 +2091,7 @@ input, select, textarea {
 					-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 					-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 					transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-					background-image: url("../../images/bg.jpg");
+					background-image: url("../../images/vs-ohne-morse.png");
 					background-position: center;
 					background-size: cover;
 					background-repeat: no-repeat;
@@ -2823,7 +2823,7 @@ input, select, textarea {
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/bg.jpg");
+			background-image: url("../../images/vs-ohne-morse.png");
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;

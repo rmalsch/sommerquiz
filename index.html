@@ -27,19 +27,19 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1 id="headline">ERNSTHAFT?</h1>
+								<h2 id="headline">ERNSTHAFT?</h2>
 								<p id="introText">Du hast doch nicht wirklich geglaubt, es würde so leicht sein?</p>
 							</div>
 						</div>
 						<nav>
 							<ul>
-								<li><a class="navHideOnUnlock" href="#password">Passwort</a></li>
-								<li><a class="navHideOnUnlock" href="#tipps">Tipps</a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#anmeldung">Zusagen</a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#hi">Willkommen</a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#food">Mitbringen</a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#sq2023">SQ2023</a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#teams">Teams</a></li>
+								<li><a class="navHideOnUnlock" href="#password"><strong>Passwort</strong></a></li>
+								<li><a class="navHideOnUnlock" href="#tipps"><strong>Tipps</strong></a></li>
+								<li><a class="geheimNav" style="visibility: hidden;" href="#anmeldung"><strong>Zusagen</strong></a></li>
+								<li><a class="geheimNav" style="visibility: hidden;" href="#teams"><strong>Teams</strong></a></li>
+								<li><a class="geheimNav" style="visibility: hidden;" href="#food"><strong>Mitbringen</strong></a></li>
+								<li><a class="geheimNav" style="visibility: hidden;" href="#blog"><strong>Blog</strong></a></li>
+								<li><a class="geheimNav" style="visibility: hidden;" href="#sq2023"><strong>SQ2023</strong></a></li>
 							</ul>
 						</nav>
 					</header>
@@ -47,12 +47,9 @@
 				<!-- Main -->
 					<div id="main">
 
-						<article class="geheimContent" id="hi">
-							<h2>Herzlich Willkommen!</h2>
-							<p>Der Sommer ist da – und mit ihm das Quiz des Jahres! Denn es ist wieder so weit: Das 2. Sommerquiz steht an! Ihr seid herzlich eingeladen zu einem Abend voller kniffliger Fragen, verrückter Spiele und garantiert guter Laune.</p>
-							<p>Das letzte Mal war ein echtes Highlight – nicht nur für mich als Gastgeber, Freund und Quizmaster, sondern offenbar auch für euch. Viele von euch haben mich seitdem auf eine Fortsetzung angesprochen, und oft haben wir gemeinsam in Erinnerungen ans Domnitzer Sommerquiz 2023 geschwelgt.</p>
-							<p>Jetzt ist es so weit – und ich freu mich riesig darauf, mit euch wieder zu rätseln, zu lachen und gemeinsam einen wunderbaren Sommerabend zu verbringen. Habt ihr Lust? Dann sagt zu, bringt gute Laune mit und seid bereit für neue Fragen, neue Herausforderungen und denselben Geist wie beim letzten Mal!</p>
-							<p>Rene</p>
+						<article class="geheimContent" id="blog">
+							<h2>Blog des Quizmasters</h2>
+							<p>Hier werden zeitnah Blogeinträge hinzugefügt.</p>
 						</article>
 
 						<article class="geheimContent" id="sq2023">
@@ -112,7 +109,7 @@
 							<h3>Bisherige Einträge</h3>
 							
 							<!-- Öffentliche Tabelle -->
-							<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQgqkHmUszxqCtvEUcZ1oCRb1XqCdz3OKQ0tYfSg80589roZZFx4BDP0sIxBRThrYI97A087y7QreFu/pubhtml?widget=true&amp;headers=false" width="90%" height="500" frameborder="0"></iframe>
+							 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRwUdQT-PM2dcADARorOneRXyCJ-Q2G0S90o-bj0xduB9JIkP5x_VKtANXPmiUSkkHY1nNiDUEttyrE/pubhtml?widget=true&amp;headers=false" width="90%" height="500" frameborder="0"></iframe>
 						</article>
 
 						<article class="geheimContent" id="teams">
@@ -124,14 +121,14 @@
 						<article id="password">
 							<h2 class="major">Passworteingabe</h2>
 							<!--<span class="image main"><img src="images/pic01.jpg" alt="" /></span>-->
-							<form method="post" action="#">
+							<form method="post" action="javascript:void(0)">
 								<div class="fields">
 									<div class="field">
 										<input type="text" class="input" id="passwordInput" placeholder="Passwort hier eingeben">
 									</div>
 								</div>
 								<ul class="actions">
-									<li><input type="button" id="checkPasswordButton" value="&#x25B6" class=""/></li>
+									<li><input type="submit" id="checkPasswordButton" value="&#x25B6" class=""/></li>
 									<li><input type="reset" value="Reset" /></li>
 								</ul>
 								<div class="fields">
@@ -171,19 +168,19 @@
 										<button id="revealButton1" data-label="Tipp 1" disabled style="font-weight: bold;" onclick="toggleTextField('revealButton1', 'hiddenTextField1')">
 											Hinweis 1
 										</button>
-										<p id="hiddenTextField1" style="display: none;">Das ist ein großartiger Tipp 1!</p>
+										<p id="hiddenTextField1" style="display: none;">Falls dir merkwürdige Punkte und Striche auffallen: Das ist ein Feature, kein Bug. Früher haute man sowas in Telegrafen - heute halt in Einladungen.</p>
 									</div>
 									<div class="field third">
 										<button id="revealButton2" data-label="Tipp 2" disabled style="font-weight: bold;" onclick="toggleTextField('revealButton2', 'hiddenTextField2')">
 											Hinweis 2
 										</button>
-										<p id="hiddenTextField2" style="display: none;">Das ist ein großartiger Tipp 2!</p>
+										<p id="hiddenTextField2" style="display: none;">Tippception: Dieser Tipp referenziert den drei Worte umfassenden Tipp, der sich im literarischen Roman namens Einladungstext versteckt. Man munkelt, dass drei Farben hier eine entscheidende Rolle spielen.</p>
 									</div>
 									<div class="field third">
 										<button id="revealButton3" data-label="Tipp 3" disabled style="font-weight: bold;" onclick="toggleTextField('revealButton3', 'hiddenTextField3')">
 											Hinweis 3
 										</button>
-										<p id="hiddenTextField3" style="display: none;">Das ist ein großartiger Tipp 3!</p>
+										<p id="hiddenTextField3" style="display: none;">Was? Ihr sucht noch den Geheimtext zum entschlüsseln mit der Vigenère-Chiffre? Der ist doch kaum zu übersehen!</p>
 									</div>
 								</div>								
 							</form>
