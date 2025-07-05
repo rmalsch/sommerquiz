@@ -3377,5 +3377,41 @@ input, select, textarea {
     }
   }
 
+.entry-header {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin: 1em 0;
+    }
+
+	.arrow {
+	display: inline-block;
+	margin-right: 0.5em;
+	transition: transform 0.3s ease;
+	font-size: 0.8em; /* kleiner Pfeil */
+	}
 
 
+    .arrow.open {
+      transform: rotate(90deg);
+    }
+
+    .entry-content {
+      display: none;
+      margin-left: 1.5em;
+    }
+
+    .entry {
+      /*border-bottom: 1px solid #ccc;*/
+      padding-bottom: 1em;
+    }
+
+	p.blog {
+	hyphens: auto;
+	text-align: justify;
+	text-align-last: left;
+	/*text-indent: 1.5em;*/
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
+	line-height: 1.4;
+	}

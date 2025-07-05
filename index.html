@@ -47,9 +47,40 @@
 				<!-- Main -->
 					<div id="main">
 
+						<script>
+							const loadedEntries = {};
+
+							function toggleEntry(id, url) {
+							const content = document.getElementById(id);
+							const arrow = document.getElementById('arrow-' + id);
+							const isOpen = content.style.display === 'block';
+
+							if (!isOpen && !loadedEntries[id]) {
+								fetch(url)
+								.then(response => response.text())
+								.then(data => {
+									content.innerHTML = data;
+									content.style.display = 'block';
+									arrow.classList.add('open');
+									loadedEntries[id] = true;
+								});
+							} else {
+								content.style.display = isOpen ? 'none' : 'block';
+								arrow.classList.toggle('open', !isOpen);
+							}
+							}
+						</script>
+
 						<article class="geheimContent" id="blog">
 							<h2>Blog des Quizmasters</h2>
-							<p>Hier werden zeitnah Blogeinträge hinzugefügt.</p>
+							<div class="entry">
+								<div class="entry-header" onclick="toggleEntry('entry1', 'blog/eintrag1.html')">
+								<span id="arrow-entry1" class="arrow">▶</span>
+								<h3 style="margin: 0;">Es war einmal...</h3>
+								</div>
+								<div id="entry1" class="entry-content"></div>
+							</div>
+
 						</article>
 
 						<article class="geheimContent" id="sq2023">
