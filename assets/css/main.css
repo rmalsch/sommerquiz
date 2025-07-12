@@ -3403,7 +3403,8 @@ input, select, textarea {
 
     .entry {
       /*border-bottom: 1px solid #ccc;*/
-      padding-bottom: 1em;
+      padding-bottom: 0em;
+	  margin-bottom: 0em;
     }
 
 	p.blog {
