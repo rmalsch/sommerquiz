@@ -1,276 +1,416 @@
-<!DOCTYPE HTML>
-<!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Sommerquiz 2025</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>Quizday is Coming</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<span class="icon">
-								<i class="bi bi-sun-fill"></i>
-							</span>
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h2 id="headline">ERNSTHAFT?</h2>
-								<p id="introText">Du hast doch nicht wirklich geglaubt, es würde so leicht sein?</p>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a class="navHideOnUnlock" href="#password"><strong>Passwort</strong></a></li>
-								<li><a class="navHideOnUnlock" href="#tipps"><strong>Tipps</strong></a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#anmeldung"><strong>Zusagen</strong></a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#teams"><strong>Teams</strong></a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#food"><strong>Mitbringen</strong></a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#songs"><strong>Spotify</strong></a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#blog"><strong>Blog</strong></a></li>
-								<li><a class="geheimNav" style="visibility: hidden;" href="#sq2023"><strong>SQ2023</strong></a></li>
-							</ul>
-						</nav>
-					</header>
+<style>
+:root {
+  --glow: rgba(33, 171, 105, 0.85);
+  --glow-soft: rgba(43, 255, 154, 0.35);
+  --hud: #b6ffdc;
+  --bg1: #0c1f18;
+  --bg2: #050607;
+}
 
-				<!-- Main -->
-					<div id="main">
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: radial-gradient(circle at center, var(--bg1) 0%, var(--bg2) 75%);
+  overflow: hidden;
+  font-family: "Orbitron", monospace;
+  color: var(--hud);
+}
 
-						<article class="geheimContent" id="songs">
-							<h2>Songs des Quizmasters</h2>
-							<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0ra45e3PbA0n22rZ3Yap4b?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-							<p>👉 <a href="https://open.spotify.com/playlist/0ra45e3PbA0n22rZ3Yap4b?si=d1a0c0701b3d41bb&pt=cab8ebface10651fc7a711ebbbca4121" target="_blank" rel="noopener noreferrer">
-							<strong>Hier der Playlist beitreten</strong>
-							</a></p>
-							<p>Gönn dem Quizmaster ein bisschen Sommerfeeling mit 5 - 10 deiner Lieblingssongs.<br>(Es müssen schon richtige Banger sein, damit er unter der Dusche anfängt zu tanzen!)</p>
-						</article>
+#bg-logo {
+  position: fixed;
+  inset: -75%;
+  background: url("images/logo-sq-4k-2.png") center / contain no-repeat;
+  opacity: 0.1;
+  filter: blur(1.5px) drop-shadow(0 0 120px var(--glow-soft));
+  z-index: 0;
+  pointer-events: none;
+  animation: drift 100s ease-in-out infinite, slow-rotate 100s ease-in-out infinite;
+}
 
-						<script>
-							const loadedEntries = {};
+@keyframes drift {
+  0%   { transform: scale(1) translateY(0px); }
+  50%  { transform: scale(1.08) translateY(-14px); }
+  100% { transform: scale(1) translateY(0px); }
+}
 
-							function toggleEntry(id, url) {
-							const content = document.getElementById(id);
-							const arrow = document.getElementById('arrow-' + id);
-							const isOpen = content.style.display === 'block';
+@keyframes slow-rotate {
+  0%   { rotate: -0.25deg; }
+  50%  { rotate: 0.25deg; }
+  100% { rotate: -0.25deg; }
+}
 
-							if (!isOpen && !loadedEntries[id]) {
-								fetch(url)
-								.then(response => response.text())
-								.then(data => {
-									content.innerHTML = data;
-									content.style.display = 'block';
-									arrow.classList.add('open');
-									loadedEntries[id] = true;
-								});
-							} else {
-								content.style.display = isOpen ? 'none' : 'block';
-								arrow.classList.toggle('open', !isOpen);
-							}
-							}
-						</script>
+#scene {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  animation: flicker 6s infinite;
+}
 
-						<article class="geheimContent" id="blog">
-							<h2>Blog des Quizmasters</h2>
-							<div class="entry">
-								<div class="entry-header" onclick="toggleEntry('entry1', 'blog/eintrag1.html')">
-								<span id="arrow-entry1" class="arrow">▶</span>
-								<h3 style="margin: 0;">Es war einmal...</h3>
-								</div>
-								<div id="entry1" class="entry-content"></div>
-							</div>
-							<div class="entry">
-								<div class="entry-header" onclick="toggleEntry('entry2', 'blog/eintrag2.html')">
-								<span id="arrow-entry2" class="arrow">▶</span>
-								<h3 style="margin: 0;">An einem kühlen Nachmittag...</h3>
-								</div>
-								<div id="entry2" class="entry-content"></div>
-							</div>
-						</article>
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  48% { opacity: .965; }
+  50% { opacity: .89; }
+  52% { opacity: .975; }
+}
 
-						<article class="geheimContent" id="sq2023">
-							<h2>Eindrücke vom Domnitzer Sommerquiz 2023</h2>
-							<div id="gallery-sq2023" class="bildergalerie"></div>
-						</article>
+#countdown-wrap {
+  max-width: 90vw;
+  width: 600px;
+  padding: 40px 30px;
+  text-align: center;
+  border: 1px solid rgba(43,255,154,0.28);
+  box-shadow:
+    0 0 22px rgba(43,255,154,0.18),
+    inset 0 0 22px rgba(43,255,154,0.12);
+  background: rgba(0,0,0,0.15);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-						<script>
-							// Bildpfade + Untertitel als Objekte
-							const bilder2023 = [
-								{ src: 'images/SQ23/sq23-cover.png', caption: 'Alles begann mit einer Einladung...' },
-								{ src: 'images/SQ23/einladungstext.png', caption: '... und einem Rätsel, dass ...' },
-								{ src: 'images/SQ23/KWR-Solution.png', caption: '... die Startzeit offenbarte!' },
-								{ src: 'images/SQ23/aufgereiht.jpg', caption: 'Die Menge folgte meinem Ruf...' },
-								{ src: 'images/SQ23/stimmung-collage.png', caption: '... und brachte exzellente Stimmung ...' },
-								{ src: 'images/SQ23/turbotüftler_posing.jpg', caption: '... und das perfekte Wetter mit!' },
-								{ src: 'images/SQ23/essen-trinken.png', caption: 'Zwischen Snacks, Drinks und tollen Gesprächen ...' },
-								{ src: 'images/SQ23/teams.png', caption: '... wurden die Teams enthüllt ...' },
-								{ src: 'images/SQ23/spiele.png', caption: '... und der Quizspaß begann!' },
-								{ src: 'images/SQ23/ringe-collage.png', caption: 'In den Pausen wurde sich beim Ringe werfen gemessen, ...' },
-								{ src: 'images/SQ23/boccia-collage.png', caption: '... beim Boccia neben Geschick vor allem Humor bewiesen ...' },
-								{ src: 'images/SQ23/tischtennis-collage.png', caption: '... und beim Tischtennis flogen Bälle, Becher ... und Sprüche!' },
-								{ src: 'images/SQ23/turbo_tüftler.png', caption: 'Die Turbo Tüftler wurden zum Siegerteam gekürt, ...' },
-								{ src: 'images/SQ23/gruppe.jpg', caption: '... doch gefeiert wurden viele für ihren Einsatz, ...' },
-								{ src: 'images/SQ23/sonne_beamer.jpg', caption: '... selbst wenn es nicht sofort <em>sichtbar</em> war.' },
-								{ src: 'images/SQ23/nicolas.jpg', caption: 'Danke an alle, die fotografierten oder sich fotografieren ließen und Spaß hatten! Auf viele weitere schöne Momente und Bilder beim Sommerquiz 2025!' },
-								{ src: 'images/SQ23/ss23-collage-bg.png', caption: 'Gedacht, geraten, gelacht <br> geflucht, gefeiert, gejubelt <br> gefühlt, geteilt, <em>GELIEBT</em>!<br><br>Danke für diesen unvergesslichen Tag!<br>Euer Freund Rene' },
-							];
+#countdown-wrap h1 {
+  font-family: "Orbitron", monospace;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 4vw, 1.1rem);
+  margin: 0 0 20px;
+  letter-spacing: 0.1em;
+}
+
+#countdown {
+  display: flex;
+  gap: 8px;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  text-align: center;
+  text-shadow: 0 0 1px var(--glow), 0 0 8px var(--glow-soft);
+  flex-wrap: nowrap;
+}
+
+#countdown span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.digit {
+  display: inline-block;
+  position: relative;
+  height: 1.5em;
+  overflow: hidden;
+  min-width: 2ch;
+}
+
+.digit span {
+  display: block;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  opacity: 1;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.digit .current { transform: translateY(0%); }
+.digit .next { transform: translateY(-100%); opacity: 0; }
+
+#countdown span small { font-size: 0.5rem; opacity: 0.6; }
+
+#grain {
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-radial-gradient(circle at center,
+      rgba(255,255,255,0.15) 0px,
+      rgba(255,255,255,0.15) 1px,
+      rgba(0,0,0,0) 2px);
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.particle {
+  position: fixed;
+  background: rgba(255,255,255,0.07);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: float 8s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0.2; }
+  50% { opacity: 0.35; }
+  100% { transform: translateY(-100vh) translateX(50px) scale(0.5); opacity: 0.2; }
+}
+
+#light-beams {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(124, 178, 111, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: beamShift 12s infinite alternate;
+}
+
+@keyframes beamShift {
+  0% { transform: rotate(0deg) scale(0.7); }
+  100% { transform: rotate(30deg) scale(1); }
+}
+
+#hint {
+  position: fixed;
+  bottom: 18px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  opacity: 0.45;
+  z-index: 4;
+}
+</style>
+</head>
+<body>
+
+<div id="bg-logo"></div>
+<div id="light-beams"></div>
+
+<div id="scene">
+  <div id="countdown-wrap">
+    <h1>QUIZDAY IS COMING</h1>
+    <div id="countdown">
+      <span><span class="digit"><span class="current" id="months">00</span><span class="next"></span></span><small>MONTHS</small></span>
+      <span>:</span>
+      <span><span class="digit"><span class="current" id="days">00</span><span class="next"></span></span><small>DAYS</small></span>
+      <span>:</span>
+      <span><span class="digit"><span class="current" id="hours">00</span><span class="next"></span></span><small>HOURS</small></span>
+      <span>:</span>
+      <span><span class="digit"><span class="current" id="minutes">00</span><span class="next"></span></span><small>MINUTES</small></span>
+      <span>:</span>
+      <span><span class="digit"><span class="current" id="seconds">00</span><span class="next"></span></span><small>SECONDS</small></span>
+    </div>
+  </div>
+</div>
+
+<div id="grain"></div>
+<audio id="tick1" src="sounds/tick1.mp3" preload="auto"></audio>
+<audio id="tick2" src="sounds/tick2.mp3" preload="auto"></audio>
+<div id="hint">CLICK ANYWHERE TO ACTIVATE SOUND</div>
+
+<script>
+// Ziel-Datum
+const target = new Date("2026-08-01T17:00:00");
+
+// Flip-Funktion
+function flipDigit(el, newVal) {
+  if (!pageVisible) {
+    el.querySelector(".current").textContent = newVal;
+    return;
+  }
+  const current = el.querySelector('.current');
+  const next = el.querySelector('.next');
+  if (current.textContent === newVal) return;
+  next.textContent = newVal;
+  next.style.transform = 'translateY(-100%)';
+  next.style.opacity = '1';
+  current.style.transform = 'translateY(0%)';
+  current.style.opacity = '1';
+  requestAnimationFrame(() => {
+    current.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+    next.style.transition = 'transform 0.3s ease';
+    current.style.transform = 'translateY(10%)';
+    current.style.opacity = '0';
+    next.style.transform = 'translateY(0%)';
+  });
+  setTimeout(() => {
+    current.textContent = newVal;
+    current.style.transition = 'none';
+    next.style.transition = 'none';
+    current.style.transform = 'translateY(0%)';
+    current.style.opacity = '1';
+    next.style.transform = 'translateY(-100%)';
+    next.style.opacity = '0';
+  }, 300);
+}
+
+// Countdown-Elemente
+const digits = {
+  months: document.getElementById('months').parentElement,
+  days: document.getElementById('days').parentElement,
+  hours: document.getElementById('hours').parentElement,
+  minutes: document.getElementById('minutes').parentElement,
+  seconds: document.getElementById('seconds').parentElement,
+};
+
+// Echte Monate und Tage berechnen
+function getMonthsAndDays(start, end) {
+  let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+
+  // Prüfen, ob der Tag im Endmonat kleiner ist als Starttag → dann 1 Monat weniger
+  if (end.getDate() < start.getDate()) {
+    months--;
+  }
+
+  // Resttage berechnen
+  const temp = new Date(start.getTime());
+  temp.setMonth(temp.getMonth() + months);
+  let days = Math.floor((end - temp) / (1000*60*60*24));
+
+  return { months, days };
+}
+
+let pageVisible = true;
+
+document.addEventListener("visibilitychange", () => {
+  pageVisible = !document.hidden;
+  if (pageVisible) {
+    forceUpdate(); // harten Reset machen
+  }
+});
+
+function forceUpdate() {
+  const now = new Date();
+  if (now >= target) return;
+
+  let months =
+    (target.getFullYear() - now.getFullYear()) * 12 +
+    (target.getMonth() - now.getMonth());
+
+  const monthCheck = new Date(now);
+  monthCheck.setMonth(monthCheck.getMonth() + months);
+  if (monthCheck > target) months--;
+
+  const days = Math.floor((target - monthCheck) / (1000 * 60 * 60 * 24));
+  const afterDays = new Date(monthCheck);
+  afterDays.setDate(afterDays.getDate() + days);
+
+  let diff = target - afterDays;
+  if (diff < 0) diff = 0;
+
+  const values = {
+    months: String(months).padStart(2,"0"),
+    days: String(days).padStart(2,"0"),
+    hours: String(Math.floor(diff / 36e5)).padStart(2,"0"),
+    minutes: String(Math.floor(diff / 6e4) % 60).padStart(2,"0"),
+    seconds: String(Math.floor(diff / 1000) % 60).padStart(2,"0")
+  };
+
+  for (const key in values) {
+    const el = digits[key];
+    const current = el.querySelector(".current");
+    const next = el.querySelector(".next");
+
+    current.textContent = values[key];
+    current.style.transition = "none";
+    current.style.transform = "translateY(0)";
+    current.style.opacity = "1";
+
+    next.style.transition = "none";
+    next.style.transform = "translateY(-100%)";
+    next.style.opacity = "0";
+  }
+}
 
 
-							const galerie = document.getElementById('gallery-sq2023');
 
-							bilder2023.forEach(({ src, caption }) => {
-								const figure = document.createElement('figure');
+function updateCountdown() {
+  const now = new Date();
+  if (now >= target) return;
 
-								const img = document.createElement('img');
-								img.src = src;
-								img.alt = caption;
+  // --- Monate sauber zählen ---
+  let months =
+    (target.getFullYear() - now.getFullYear()) * 12 +
+    (target.getMonth() - now.getMonth());
 
-								const figcaption = document.createElement('figcaption');
-								figcaption.innerHTML = caption;
+  const monthCheck = new Date(now);
+  monthCheck.setMonth(monthCheck.getMonth() + months);
 
-								figure.appendChild(img);
-								figure.appendChild(figcaption);
-								galerie.appendChild(figure);
-							});
-							</script>
+  if (monthCheck > target) {
+    months--;
+    monthCheck.setMonth(monthCheck.getMonth() - 1);
+  }
 
-						<article class="geheimContent" id="anmeldung">
-							<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScf1RtpQH-MzZzrJ9ouiyrZlGXHHHJbnhhVAWsRSTRZzu-zvA/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Wird geladen…</iframe>
-						</article>
+  // --- Resttage ---
+  const days = Math.floor((target - monthCheck) / (1000 * 60 * 60 * 24));
 
-						<article class="geheimContent" id="food">
-							<!-- Google Form -->
-							<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc4Zf7Bws5Skgw2fP26AawCE4F8iv-RlYPucPeglNcA6f3l-w/viewform?embedded=true" width="100%" height="500" frameborder="0">Wird geladen…</iframe>
+  // --- Restzeit nach ganzen Tagen ---
+  const afterDays = new Date(monthCheck);
+  afterDays.setDate(afterDays.getDate() + days);
 
-							<h3>Bisherige Einträge</h3>
-							
-							<!-- Öffentliche Tabelle -->
-							 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRwUdQT-PM2dcADARorOneRXyCJ-Q2G0S90o-bj0xduB9JIkP5x_VKtANXPmiUSkkHY1nNiDUEttyrE/pubhtml?widget=true&amp;headers=false" width="100%" height="500" frameborder="0"></iframe>
-						</article>
+  let diff = target - afterDays;
+  if (diff < 0) diff = 0;
 
-						<article class="geheimContent" id="teams">
-							<h2>Teams</h2>
-							<p>Hier werden zeitnah die Teams verkündet.</p>
-						</article>
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor(diff / (1000 * 60)) % 60;
+  const seconds = Math.floor(diff / 1000) % 60;
 
-						<!-- Intro -->
-						<article id="password">
-							<h2 class="major">Passworteingabe</h2>
-							<!--<span class="image main"><img src="images/pic01.jpg" alt="" /></span>-->
-							<form method="post" action="javascript:void(0)">
-								<div class="fields">
-									<div class="field">
-										<input type="text" class="input" id="passwordInput" placeholder="Passwort hier eingeben">
-									</div>
-								</div>
-								<ul class="actions">
-									<li><input type="submit" id="checkPasswordButton" value="&#x25B6" class=""/></li>
-									<li><input type="reset" value="Reset" /></li>
-								</ul>
-								<div class="fields">
-									<div class="field">
-										<p id="errorMessage" style="display: none;"></p>
-									</div>
-								</div>
-							</form>
-						</article>
+  flipDigit(digits.months, String(months).padStart(2, "0"));
+  flipDigit(digits.days,   String(days).padStart(2, "0"));
+  flipDigit(digits.hours, String(hours).padStart(2, "0"));
+  flipDigit(digits.minutes, String(minutes).padStart(2, "0"));
+  flipDigit(digits.seconds, String(seconds).padStart(2, "0"));
+}
 
-						<article id="tipps">
-							<h2 class="major">Hilfe zum Rätsel</h2>
-							<form>
-								<div class="fields">
-									<div class="field">
-										<h3>Nächster Tipp in:</h3>
-									</div>
-									<div class="field quarter">
-										<span id="days" class="number">0</span><br>
-										<h4>Tage</h4>
-									</div>
-									<div class="field quarter">
-										<span id="hours" class="number">0</span><br>
-										<h4>Stunden</h4>
-									</div>
-									<div class="field quarter">
-										<span id="minutes" class="number">0</span><br>
-										<h4>Minuten</h4>
-									</div>
-									<div class="field quarter">
-										<span id="seconds" class="number">0</span><br>
-										<h4>Sekunden</h4>
-									</div>
-								</div>
-								<div class="fields">
-									<div class="field third">
-										<button id="revealButton1" data-label="Tipp 1" disabled style="font-weight: bold;" onclick="toggleTextField('revealButton1', 'hiddenTextField1')">
-											Hinweis 1
-										</button>
-										<p id="hiddenTextField1" style="display: none;">Falls dir merkwürdige Punkte und Striche auffallen: Das ist ein Feature, kein Bug. Früher haute man sowas in Telegrafen - heute halt in Einladungen.</p>
-									</div>
-									<div class="field third">
-										<button id="revealButton2" data-label="Tipp 2" disabled style="font-weight: bold;" onclick="toggleTextField('revealButton2', 'hiddenTextField2')">
-											Hinweis 2
-										</button>
-										<p id="hiddenTextField2" style="display: none;">Tippception: Dieser Tipp referenziert den drei Worte umfassenden Tipp, der sich im literarischen Roman namens Einladungstext versteckt. Man munkelt, dass drei Farben hier eine entscheidende Rolle spielen.</p>
-									</div>
-									<div class="field third">
-										<button id="revealButton3" data-label="Tipp 3" disabled style="font-weight: bold;" onclick="toggleTextField('revealButton3', 'hiddenTextField3')">
-											Hinweis 3
-										</button>
-										<p id="hiddenTextField3" style="display: none;">Was? Ihr sucht noch den Geheimtext zum entschlüsseln mit der Vigenère-Chiffre? Der ist doch kaum zu übersehen!</p>
-									</div>
-								</div>								
-							</form>
-						</article>
 
-					</div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; SQ2025 <!--Design: <a href="https://html5up.net">HTML5 UP</a>.--></p>
-					</footer>
+setInterval(updateCountdown, 250);
+updateCountdown();
 
-			</div>
+// --- Zwei Tick-Sounds abwechselnd ---
+const tick1 = document.getElementById("tick1");
+const tick2 = document.getElementById("tick2");
+tick1.volume = tick2.volume = 0.35;
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function startAudio(audio) {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  audio.currentTime = 0;
+  audio.play().catch(()=>console.log("Autoplay blockiert"));
+}
 
-		<!-- BG -->
-			<div id="bg"></div>
+let lastSecond = -1;
+let toggle = true;
+function tickSync() {
+  const now = new Date();
+  const seconds = Math.floor((target - now) / 1000) % 60;
+  if (seconds !== lastSecond) {
+    lastSecond = seconds;
+    if (toggle) startAudio(tick1);
+    else startAudio(tick2);
+    toggle = !toggle;
+  }
+}
+setInterval(tickSync, 200);
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			
-			<!-- Neu -->
-			<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script> 
-			<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-			<script src="assets/js/checkpassword.js"></script>
-			<script src="assets/js/countdown.js"></script>
-			<script>
-			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-				anchor.addEventListener('click', function (e) {
-				const id = this.getAttribute('href');
-				const target = document.querySelector(id);
+document.body.addEventListener("click", () => {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  document.getElementById("hint").style.display = "none";
+});
 
-				// Wenn das Ziel ein Artikel ist, nach kurzer Wartezeit sanft scrollen
-				if (target && target.tagName.toLowerCase() === 'article') {
-					setTimeout(() => {
-					target.scrollIntoView({ behavior: 'smooth' });
-					}, 500); // Zeit je nach main.js-Animationsdauer ggf. anpassen
-				}
-				});
-			});
-			</script>
-	</body>
+// Partikel
+for(let i=0;i<40;i++){
+  const p = document.createElement('div');
+  p.className='particle';
+  p.style.width = p.style.height = (Math.random()*15 + 1)+'px';
+  p.style.left = Math.random()*100+'vw';
+  p.style.top = Math.random()*100+'vh';
+  p.style.animationDuration = (6+Math.random()*6)+'s';
+  document.body.appendChild(p);
+}
+</script>
+</body>
 </html>
