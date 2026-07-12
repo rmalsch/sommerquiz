@@ -4,9 +4,9 @@ Dieses Projekt ist eine statische, modulare Sommerquiz-Website für GitHub Pages
 
 ## Enthalten
 - öffentliche Startseite mit Countdown, Passwortzugang und Verweis auf das Passwort-Rätsel
-- öffentliche Rätselseite mit sechs sequenziellen Spielen und sechs freispielbaren Passwortbuchstaben
+- öffentliche Rätselseite mit sechs frei anwählbaren Spielen; das Passwort erscheint erst nach Abschluss aller Spiele
 - Navigation, die sich nach Passwortfreigabe erweitert
-- getrennte Seiten für News, Blog, Galerie/Chronik, RSVP, Mitbringen, Themen/Spiele, Newsletter, Keine Teamabstimmung und FAQ
+- getrennte Seiten für News mit Update-Liste, Blog, Galerie/Chronik, RSVP, Mitbringen, Themen/Spiele, Sommerquiz-Profil und FAQ
 - zentrale Daten-Dateien für Inhalte
 - Formulare mit Google-Apps-Script-Anbindung
 - sichtbare Live-Bereiche für RSVP-Counter und Mitbringen-Liste
@@ -15,7 +15,7 @@ Dieses Projekt ist eine statische, modulare Sommerquiz-Website für GitHub Pages
 1. `assets/data/site-config.js` enthält Branding, Eventdatum, Passwort, Navigation, Introtext und Footer-Hinweis.
 2. `assets/data/forms.js` enthält die Google-Apps-Script-`/exec`-URL, Formular-Modi, Remote-Formtypen und Meldungstexte.
 
-Der aktuelle Ablauf in `raetsel.html` erwartet ein Passwort mit genau sechs Zeichen. Die Buchstaben werden direkt aus `accessPassword` in `assets/data/site-config.js` übernommen.
+Der aktuelle Ablauf in `raetsel.html` erwartet ein Passwort mit genau sechs Zeichen. Nach Abschluss aller Spiele wird `accessPassword` aus `assets/data/site-config.js` angezeigt.
 
 ## Inhalte pflegen
 - News: `assets/data/news.js`
@@ -34,6 +34,7 @@ Erwartete Formulararten:
 - `newsletter`
 - `team_profiles`
 - `faq_questions`
+- `pickup_requests`
 
 ## Google Apps Script
 Das Apps Script liegt in `google-apps-script/Code.gs`.
@@ -45,9 +46,11 @@ Erwartete Sheet-Namen:
 - `newsletter`
 - `team_profiles`
 - `faq_questions`
+- `pickup_requests`
 
 `team_profiles` erwartet die Spalten: Name, classic_knowledge, recognition, estimation_curiosity, patterns_puzzling, clue_combination, fine_motor_skills, movement_coordination, explain_coordinate, motivate_perform, Zeitstempel.
 `faq_questions` erwartet die Spalten: Zeitstempel, Name, Frage.
+`pickup_requests` erwartet die Spalten: Zeitstempel, Name, Hinweis.
 
 Die Website sendet Formularwerte an die in `assets/data/forms.js` konfigurierte `/exec`-URL. Live-Auswertungen werden per JSONP über `doGet` geladen.
 

@@ -5,6 +5,7 @@ const SHEETS = {
   newsletter: 'newsletter',
   team_profiles: 'team_profiles',
   faq_questions: 'faq_questions',
+  pickup_requests: 'pickup_requests',
 };
 
 function doGet(e) {
@@ -69,6 +70,7 @@ function normalizePayload_(e) {
     description: params.description || '',
     email: params.email || '',
     question: params.question || '',
+    note: params.note || '',
     classic_knowledge: params.classic_knowledge || '',
     recognition: params.recognition || '',
     estimation_curiosity: params.estimation_curiosity || '',
@@ -152,6 +154,13 @@ function writeRow_(formType, data) {
         timestamp,
         data.name,
         data.question,
+      ]);
+      break;
+    case 'pickup_requests':
+      sheet.appendRow([
+        timestamp,
+        data.name,
+        data.note,
       ]);
       break;
     default:

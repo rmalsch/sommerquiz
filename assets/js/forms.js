@@ -103,6 +103,10 @@
       normalized.email = typeof normalized.email === 'string' ? normalized.email.trim() : '';
     }
 
+    if (kind === 'pickup') {
+      normalized.note = typeof normalized.note === 'string' ? normalized.note.trim() : '';
+    }
+
     if (kind === 'teams') {
       [
         'classic_knowledge',

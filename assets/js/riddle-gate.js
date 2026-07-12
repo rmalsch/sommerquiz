@@ -1,6 +1,6 @@
 (function () {
   const GAME_COUNT = 6;
-  const FREE_NAVIGATION_FOR_TESTING = true;
+  const ALLOW_FINAL_SCREEN_FOR_TESTING = false;
   const steps = [...document.querySelectorAll("[data-riddle-step]")];
   const indicators = [...document.querySelectorAll("[data-riddle-step-indicator]")];
   const revealedCode = document.querySelector("[data-revealed-code]");
@@ -10,8 +10,19 @@
   const completedSteps = new Set();
   let activeStep = 0;
 
+  function areAllGamesComplete() {
+    return completedSteps.size === GAME_COUNT;
+  }
+
+  function canOpenFinalScreen() {
+    return ALLOW_FINAL_SCREEN_FOR_TESTING || areAllGamesComplete();
+  }
+
   function setStep(index) {
     activeStep = index;
+    if (index === GAME_COUNT && ALLOW_FINAL_SCREEN_FOR_TESTING && revealedCode) {
+      revealedCode.textContent = configuredCode || "Code fehlt in der Config";
+    }
     steps.forEach((step) => {
       step.classList.toggle("is-active", Number(step.dataset.riddleStep) === index);
     });
@@ -25,7 +36,7 @@
       navigationPrevious.classList.toggle("is-hidden", index <= 0);
     }
     if (navigationNext) {
-      navigationNext.disabled = index >= GAME_COUNT || (!FREE_NAVIGATION_FOR_TESTING && !completedSteps.has(index));
+      navigationNext.disabled = index >= GAME_COUNT || (index === GAME_COUNT - 1 && !canOpenFinalScreen());
       navigationNext.classList.toggle("is-hidden", index >= GAME_COUNT);
     }
   }
@@ -53,7 +64,7 @@
   function completeStep(index) {
     if (completedSteps.has(index)) return;
     completedSteps.add(index);
-    if (index === GAME_COUNT - 1 && revealedCode) {
+    if (areAllGamesComplete() && revealedCode) {
       revealedCode.textContent = configuredCode || "Code fehlt in der Config";
     }
     setStep(activeStep);
@@ -490,7 +501,7 @@
   const memoryGrid = document.querySelector("[data-memory-grid]");
   const memoryScore = document.querySelector("[data-memory-score]");
   const memoryReset = document.querySelector("[data-memory-reset]");
-  const MEMORY_MAX_MOVES = 18;
+  const MEMORY_MAX_MOVES = 16;
   const memoryItems = [
     { id: "vier-gewinnt", src: "assets/images/sq2025/presentation-assets/4gewinnt.png", alt: "Vier gewinnt" },
     { id: "buzzer", src: "assets/images/sq2025/presentation-assets/Buzzer.png", alt: "Buzzer" },
@@ -523,7 +534,7 @@
     if (memoryScore) memoryScore.textContent = `${memoryMoves} / ${MEMORY_MAX_MOVES} Züge`;
   }
 
-  function buildMemory() {
+  function buildMemory(showShuffleFlash = true) {
     if (!memoryGrid) return;
     window.clearTimeout(memoryRestartTimer);
     window.clearTimeout(memoryPeekTimer);
@@ -543,13 +554,14 @@
       button.dataset.memoryIndex = String(index);
       button.setAttribute("aria-label", "Verdeckte Memory-Karte");
       button.innerHTML = `<img class="${item.imageClass || ""}" src="${item.src}" alt="${item.alt}" loading="lazy" />`;
-      button.classList.add("is-shuffle-flash");
+      if (showShuffleFlash) button.classList.add("is-shuffle-flash");
       memoryGrid.appendChild(button);
     });
+    const unlockDelay = showShuffleFlash ? 650 : 0;
     memoryPeekTimer = window.setTimeout(() => {
       memoryGrid.querySelectorAll(".memory-card.is-shuffle-flash").forEach((card) => card.classList.remove("is-shuffle-flash"));
       memoryLocked = false;
-    }, 650);
+    }, unlockDelay);
   }
 
   function restartMemoryAfterLimit() {
@@ -600,7 +612,7 @@
     }, 700);
   });
 
-  memoryReset?.addEventListener("click", buildMemory);
+  memoryReset?.addEventListener("click", () => buildMemory(true));
 
   const timingTracks = document.querySelector("[data-timing-tracks]");
   const timingToggle = document.querySelector("[data-timing-toggle]");
@@ -718,23 +730,25 @@
   const slideStatus = document.querySelector("[data-slide-status]");
   const slideReset = document.querySelector("[data-slide-reset]");
   const SLIDE_IMAGE = "assets/images/theme/logo-sq-4k-2.png";
+  const SLIDE_SIZE = 4;
+  const SLIDE_TILE_COUNT = SLIDE_SIZE * SLIDE_SIZE;
   let slideBoard = [];
   let slideMoves = 0;
   let slideLocked = false;
 
   function slideNeighbors(emptyIndex) {
-    const row = Math.floor(emptyIndex / 3);
-    const col = emptyIndex % 3;
+    const row = Math.floor(emptyIndex / SLIDE_SIZE);
+    const col = emptyIndex % SLIDE_SIZE;
     const neighbors = [];
-    if (row > 0) neighbors.push(emptyIndex - 3);
-    if (row < 2) neighbors.push(emptyIndex + 3);
+    if (row > 0) neighbors.push(emptyIndex - SLIDE_SIZE);
+    if (row < SLIDE_SIZE - 1) neighbors.push(emptyIndex + SLIDE_SIZE);
     if (col > 0) neighbors.push(emptyIndex - 1);
-    if (col < 2) neighbors.push(emptyIndex + 1);
+    if (col < SLIDE_SIZE - 1) neighbors.push(emptyIndex + 1);
     return neighbors;
   }
 
   function isSlideSolved() {
-    return slideBoard.every((value, index) => value === (index === 8 ? null : index));
+    return slideBoard.every((value, index) => value === (index === SLIDE_TILE_COUNT - 1 ? null : index));
   }
 
   function renderSlidePuzzle() {
@@ -749,11 +763,12 @@
         button.disabled = true;
         button.setAttribute("aria-label", "Freies Feld");
       } else {
-        const sourceRow = Math.floor(tileValue / 3);
-        const sourceCol = tileValue % 3;
+        const sourceRow = Math.floor(tileValue / SLIDE_SIZE);
+        const sourceCol = tileValue % SLIDE_SIZE;
+        const backgroundStep = 100 / (SLIDE_SIZE - 1);
         button.className = "slide-tile";
         button.style.backgroundImage = `url("${SLIDE_IMAGE}")`;
-        button.style.backgroundPosition = `${sourceCol * 50}% ${sourceRow * 50}%`;
+        button.style.backgroundPosition = `${sourceCol * backgroundStep}% ${sourceRow * backgroundStep}%`;
         button.setAttribute("aria-label", `Bildteil ${tileValue + 1} verschieben`);
       }
       slidePuzzle.appendChild(button);
@@ -761,10 +776,11 @@
   }
 
   function resetSlidePuzzle() {
-    slideBoard = [0, 1, 2, 3, 4, 5, 6, 7, null];
-    let emptyIndex = 8;
+    slideBoard = Array.from({ length: SLIDE_TILE_COUNT - 1 }, (_, index) => index);
+    slideBoard.push(null);
+    let emptyIndex = SLIDE_TILE_COUNT - 1;
     let previousEmpty = -1;
-    for (let turn = 0; turn < 160; turn += 1) {
+    for (let turn = 0; turn < 320; turn += 1) {
       const options = slideNeighbors(emptyIndex).filter((index) => index !== previousEmpty);
       const moveIndex = options[Math.floor(Math.random() * options.length)];
       slideBoard[emptyIndex] = slideBoard[moveIndex];
@@ -815,7 +831,7 @@
     });
     if (revealedCode) revealedCode.textContent = "......";
     resetSequence();
-    buildMemory();
+    buildMemory(false);
     resetTiming();
     resetMastermind();
     resetWordle();
@@ -827,6 +843,7 @@
 
   function navigateToStep(index) {
     const targetStep = Math.max(0, Math.min(GAME_COUNT, index));
+    if (targetStep === GAME_COUNT && !canOpenFinalScreen()) return;
 
     clearSequenceTimers();
     sequenceLocked = true;
@@ -844,7 +861,7 @@
 
   navigationPrevious?.addEventListener("click", () => navigateToStep(activeStep - 1));
   navigationNext?.addEventListener("click", () => {
-    if (FREE_NAVIGATION_FOR_TESTING || completedSteps.has(activeStep)) navigateToStep(activeStep + 1);
+    navigateToStep(activeStep + 1);
   });
 
   if (Array.from(configuredCode).length !== GAME_COUNT) {

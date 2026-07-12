@@ -1,6 +1,6 @@
 window.FormConfig = {
   // Google-Apps-Script-/exec-URL für Formularübertragung und Live-Daten.
-  endpoint: "https://script.google.com/macros/s/AKfycbz3T2vxQRBv0aVI-CQmLqWTUAalQhN6rqsk7FcIAykgMdCisl0H7h2JLg_792jD8ol7/exec",
+  endpoint: "https://script.google.com/macros/s/AKfycbwUknqYxNCP4SsW-Phhw5MLn_PQsmOce_iHBeF34IwYywNFVSXN5KdstVwHylmBDvU/exec",
 
   modes: {
     rsvp: "remote",
@@ -8,7 +8,8 @@ window.FormConfig = {
     games: "remote",
     newsletter: "remote",
     teams: "remote",
-    faq: "remote"
+    faq: "remote",
+    pickup: "remote"
   },
 
   remoteFormTypes: {
@@ -17,7 +18,8 @@ window.FormConfig = {
     games: "games",
     newsletter: "newsletter",
     teams: "team_profiles",
-    faq: "faq_questions"
+    faq: "faq_questions",
+    pickup: "pickup_requests"
   },
 
   messages: {
@@ -34,11 +36,12 @@ window.FormConfig = {
       games: "Dein Beitrag ist notiert. Mal sehen, was daraus wird ...",
       newsletter: "Du bist jetzt auf der Update-Liste gelandet.",
       teams: "Danke! Dein Sommerquiz-Profil wurde gespeichert. Der Quizmaster wird die Teams daraus vollkommen subjektiv und keinesfalls zufällig zusammenstellen.",
-      faq: "Danke! Deine Frage ist angekommen und wird vom Quizmaster fachkundig beäugt."
+      faq: "Danke! Deine Frage ist angekommen und wird vom Quizmaster fachkundig beäugt.",
+      pickup: "Danke! Der Quizmaster wird sich bei dir melden."
     },
     errorByKind: {
       default: "Ups — da ist etwas schiefgelaufen. Vielleicht sabotiert die Sommersonne gerade die Technik.",
-      teamsMissingChoice: "Bitte fülle alle Teamprofil-Fragen aus."
+      teamsMissingChoice: "Bitte beantworte alle Fragen."
     }
   }
 };

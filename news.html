@@ -43,6 +43,28 @@
     </p>
   </div>
   <div class="stack" id="news-root"></div>
+  <div class="form-shell news-newsletter" id="newsletter">
+    <div class="section-header section-header--compact">
+      <h2>Sommerquiz-Updates</h2>
+      <p>Trag dich hier ein, wenn du neue Informationen und wichtige Änderungen zum Quizabend oder zur Website mitbekommen möchtest.</p>
+    </div>
+    <form data-form-kind="newsletter">
+      <div class="form-grid">
+        <div class="field">
+          <label for="newsletter-name">Name</label>
+          <input id="newsletter-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="newsletter-email">E-Mail-Adresse</label>
+          <input id="newsletter-email" name="email" type="email" autocomplete="email" required />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="button" type="submit">Auf die Update-Liste setzen</button>
+      </div>
+    </form>
+    <div class="status-message" data-form-status hidden></div>
+  </div>
 </section>
 
         </div>

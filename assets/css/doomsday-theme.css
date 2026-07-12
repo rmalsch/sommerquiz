@@ -318,9 +318,20 @@
   color: var(--doom-muted);
 }
 
-.theme-doom [data-access-granted] .button--secondary {
+.theme-doom .access-reset-actions .button--secondary {
   border-color: rgba(53, 240, 154, 0.26);
   background: rgba(4, 14, 10, 0.70);
+}
+
+.theme-doom .access-next-steps__links a {
+  color: #c8ffe1;
+  text-decoration-color: rgba(53, 240, 154, 0.55);
+  text-shadow: 0 0 12px rgba(53, 240, 154, 0.2);
+}
+
+.theme-doom .access-next-steps__links a:hover {
+  color: #ffffff;
+  text-decoration-color: rgba(183, 255, 217, 0.9);
 }
 
 .theme-doom .event-briefing__grid div {
@@ -401,28 +412,6 @@
   box-shadow: 0 0 14px rgba(53,240,154,0.22);
   transform: translate3d(0, 0, 0);
   animation: doomParticleFloat var(--particle-duration) linear var(--particle-delay) infinite;
-}
-
-.doom-audio-toggle {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 8;
-  border: 1px solid rgba(53,240,154,0.28);
-  background: rgba(4, 9, 7, 0.72);
-  color: #d9ffe9;
-  border-radius: 999px;
-  padding: 0.7rem 0.9rem;
-  font: inherit;
-  font-size: 0.88rem;
-  cursor: pointer;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 0 28px rgba(53,240,154,0.10);
-}
-
-.doom-audio-toggle.is-active {
-  color: #07100d;
-  background: rgba(53,240,154,0.82);
 }
 
 @keyframes doomCountdownBreathClose {

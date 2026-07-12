@@ -10,7 +10,6 @@
 </head>
 <body class="theme-doom theme-doom--full theme-doom--counter-logo">
   <div class="doom-particles" data-doom-particles aria-hidden="true"></div>
-  <button class="doom-audio-toggle" type="button" data-doom-audio-toggle>Tickger&auml;usche starten</button>
   <div class="page-shell">
     <header class="site-header">
       <div class="site-header__inner">
@@ -75,7 +74,7 @@
       <h2 style="margin-top:0.8rem;">Passworteingabe</h2>
     </div>
 
-    <div class="notice access-riddle-callout">
+    <div class="notice access-riddle-callout" data-access-riddle-callout>
       <strong>Noch keinen Zugangscode?</strong>
       <p class="inline-note">Stelle dich der Prüfung des Quizmasters und beweise dich!</p>
       <div class="form-actions">
@@ -98,10 +97,10 @@
 
     <div class="notice hidden" data-access-granted>
       <strong>Zugang freigeschaltet.</strong>
-      <p class="inline-note">Weitere Navigationspunkte sind nun verfügbar.</p>
-      <div class="form-actions">
-        <button class="button button--secondary" type="button" data-reset-access>Zugang zurücksetzen</button>
-      </div>
+      <div class="access-next-steps" data-access-next-steps="compact"></div>
+    </div>
+    <div class="access-reset-actions hidden" data-access-reset-actions>
+      <button class="button button--secondary" type="button" data-reset-access>Zugang zurücksetzen</button>
     </div>
   </section>
 
@@ -110,7 +109,7 @@
       <span class="kicker">Neue Location</span>
       <h2 style="margin-top:0.8rem;">Wann und wo?</h2>
     </div>
-    <dl style="margin-top:-2.0rem;" class="event-briefing__grid">
+    <dl class="event-briefing__grid">
       <div>
         <dt>Datum</dt>
         <dd data-event-date>–</dd>

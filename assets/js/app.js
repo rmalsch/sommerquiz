@@ -84,6 +84,47 @@
     `;
   }
 
+  function buildAccessNextSteps() {
+    const config = window.SiteConfig.accessNextSteps;
+    if (!config) return;
+
+    document.querySelectorAll("[data-access-next-steps]").forEach((root) => {
+      root.innerHTML = "";
+      const isCompact = root.dataset.accessNextSteps === "compact";
+      const isPlain = root.dataset.accessNextSteps === "plain";
+
+      if (isCompact) {
+        const text = el("p", { text: config.compactText });
+        const links = el("div", { className: "access-next-steps__links" });
+        (config.compactItems || []).forEach((item) => {
+          const link = el("a", { href: item.href, text: item.label });
+          if (item.important) link.classList.add("is-important");
+          links.appendChild(link);
+        });
+        root.classList.add("is-compact");
+        root.append(text, links);
+        return;
+      }
+
+      const heading = el("h3", { text: config.title });
+      const intro = el("p", { text: config.intro });
+      const list = el("ul", { className: "access-next-steps__list" });
+
+      (config.items || []).forEach((item) => {
+        const entry = el("li");
+        if (item.important) entry.classList.add("is-important");
+        const label = isPlain
+          ? el("span", { className: "access-next-steps__label", text: item.label })
+          : el("a", { href: item.href, text: item.label });
+        const text = el("span", { text: item.text });
+        entry.append(label, text);
+        list.appendChild(entry);
+      });
+
+      root.append(heading, intro, list);
+    });
+  }
+
   function initAccessRequired() {
     const requiredNotice = document.querySelector("[data-access-required]");
     const protectedContent = document.querySelector("[data-protected-content]");
@@ -115,9 +156,17 @@
 
     const passwordArea = document.querySelector("[data-password-panel]");
     const accessGranted = document.querySelector("[data-access-granted]");
+    const accessRiddleCallout = document.querySelector("[data-access-riddle-callout]");
+    const accessResetActions = document.querySelector("[data-access-reset-actions]");
     if (passwordArea && accessGranted) {
       passwordArea.classList.toggle("hidden", hasAccess());
       accessGranted.classList.toggle("hidden", !hasAccess());
+    }
+    if (accessRiddleCallout) {
+      accessRiddleCallout.classList.toggle("hidden", hasAccess());
+    }
+    if (accessResetActions) {
+      accessResetActions.classList.toggle("hidden", !hasAccess());
     }
   }
 
@@ -190,6 +239,7 @@
 
     buildNav();
     buildFooter();
+    buildAccessNextSteps();
     initAccessRequired();
     initPasswordGate();
     initLogout();

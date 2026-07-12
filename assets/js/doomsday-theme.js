@@ -1,10 +1,5 @@
 (function () {
   const particleRoot = document.querySelector("[data-doom-particles]");
-  const audioToggle = document.querySelector("[data-doom-audio-toggle]");
-  const tickSources = [
-    "assets/audio/theme/tick1.mp3",
-    "assets/audio/theme/tick2.mp3",
-  ];
 
   function createParticles() {
     if (!particleRoot) return;
@@ -23,97 +18,7 @@
     }
   }
 
-  function createAudioController() {
-    if (!audioToggle) return;
-
-    const storageKey = "sqDoomTickSound";
-    let active = false;
-    let tickTimer = null;
-    let tickIndex = 0;
-    let lastSecond = -1;
-    const tickPlayers = tickSources.map((src) => {
-      const audio = new Audio(src);
-      audio.preload = "auto";
-      audio.volume = 0.10;
-      return audio;
-    });
-
-    function updateButton(label) {
-      audioToggle.textContent = label || (active ? "Tickger\u00e4usche ausschalten" : "Tickger\u00e4usche einschalten");
-      audioToggle.classList.toggle("is-active", active);
-    }
-
-    function getSecondMarker() {
-      if (window.SiteConfig?.eventDate) {
-        const target = new Date(window.SiteConfig.eventDate).getTime();
-        const remaining = Math.max(0, Math.floor((target - Date.now()) / 1000));
-        return remaining;
-      }
-      return Math.floor(Date.now() / 1000);
-    }
-
-    function playTick() {
-      const tick = tickPlayers[tickIndex % tickPlayers.length];
-      tickIndex += 1;
-      tick.currentTime = 0;
-      return tick.play();
-    }
-
-    function syncTick() {
-      const secondMarker = getSecondMarker();
-      if (secondMarker === lastSecond) return;
-      lastSecond = secondMarker;
-      playTick().catch(() => {
-        stop({ remember: false });
-        updateButton("Tickger\u00e4usche starten");
-      });
-    }
-
-    function start({ remember = true } = {}) {
-      if (tickTimer) return;
-      active = true;
-      updateButton();
-      if (remember) localStorage.setItem(storageKey, "on");
-      lastSecond = -1;
-      tickTimer = window.setInterval(syncTick, 180);
-      syncTick();
-    }
-
-    function stop({ remember = true } = {}) {
-      active = false;
-      window.clearInterval(tickTimer);
-      tickTimer = null;
-      tickPlayers.forEach((tick) => {
-        tick.pause();
-        tick.currentTime = 0;
-      });
-      if (remember) localStorage.setItem(storageKey, "off");
-      updateButton();
-    }
-
-    audioToggle.addEventListener("click", () => {
-      if (active) stop();
-      else start();
-    });
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden && active) {
-        window.clearInterval(tickTimer);
-        tickTimer = null;
-      } else if (!document.hidden && active && !tickTimer) {
-        lastSecond = -1;
-        tickTimer = window.setInterval(syncTick, 180);
-      }
-    });
-
-    updateButton();
-    if (localStorage.getItem(storageKey) !== "off") {
-      start({ remember: false });
-    }
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     createParticles();
-    createAudioController();
   });
 })();

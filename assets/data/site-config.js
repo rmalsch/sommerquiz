@@ -10,6 +10,24 @@ window.SiteConfig = {
   introText: "Kaum zu glauben, aber wahr: Das Sommerquiz geht tatsächlich schon in die dritte Runde — das klingt langsam verdächtig nach Tradition! Und da wir diese Entwicklung nun natürlich nicht einfach abbrechen können, lade ich Euch auch dieses Jahr wieder herzlich ein.",
   //"Ein Sommerabend wie ein kleiner Blockbuster: Teams, Snacks, Fragen und ein Countdown, der unaufhaltsam Richtung Quizbeginn läuft.",
   accessGrantedLabel: "Freigeschaltet",
+  accessNextSteps: {
+    title: "Was jetzt wichtig ist",
+    intro: "Nach der Freischaltung warten nicht nur neue Seiten, sondern auch ein paar Dinge, bei denen deine Rückmeldung gefragt ist:",
+    compactText: "Wenn du kommen möchtest, beginne bitte mit der Zusage. Danach kannst du direkt die wichtigsten Mitmach-Bereiche erkunden:",
+    compactItems: [
+      { href: "rsvp.html", label: "Zusage", important: true },
+      { href: "bring.html", label: "Mitbringen" },
+      { href: "teams.html", label: "Sommerquiz-Profil" }
+    ],
+    items: [
+      { href: "rsvp.html", label: "Zusage", text: "Wenn du beim Sommerquiz dabei sein möchtest, trage dich bitte zuerst hier ein.", important: true },
+      { href: "teams.html", label: "Sommerquiz-Profil", text: "Fülle dein Sommerquiz-Profil aus. Das ist bestimmt für nichts Wichtiges relevant und wird ganz sicher nicht später in irgendeine mysteriöse Teamlogik einfließen." , important: true },
+      { href: "bring.html", label: "Mitbringen", text: "Wirf einen Blick auf das bisher geplante Buffet und trage, wenn du möchtest, etwas dazu bei." },
+      { href: "games.html", label: "Themen & Spiele", text: "Reiche Spielideen, Themenwünsche oder eigene Beiträge ein." },
+      { href: "news.html", label: "News", text: "Lies Neuigkeiten oder melde dich zum Newsletter an." },
+      { href: "faq.html", label: "FAQ", text: "Finde Antworten auf organisatorische Fragen oder stelle selbst eine." }
+    ]
+  },
   wrongPasswordMessages: [
     "Das war wohl nix.",
     "Huch? Das Passwort ist leider falsch.",
@@ -30,8 +48,7 @@ window.SiteConfig = {
     { href: "rsvp.html", label: "Zusage" },
     { href: "bring.html", label: "Mitbringen" },
     { href: "games.html", label: "Themen & Spiele" },
-    { href: "newsletter.html", label: "Newsletter" },
-    { href: "teams.html", label: "Keine Teamabstimmung" },
+    { href: "teams.html", label: "Sommerquiz-Profil" },
     { href: "faq.html", label: "FAQ" }
   ],
   socialHint: "[...]",

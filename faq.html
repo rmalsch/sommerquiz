@@ -42,6 +42,25 @@
     <p>Die wichtigsten organisatorischen Informationen an einem Ort.</p>
   </div>
   <div class="stack" id="faq-root"></div>
+  <div class="pickup-interest-form" data-pickup-interest>
+    <h3>Mitfahrgelegenheit</h3>
+    <form data-form-kind="pickup">
+      <div class="form-grid form-grid--single">
+        <div class="field">
+          <label for="pickup-name">Name</label>
+          <input id="pickup-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field field--full">
+          <label for="pickup-note">Kontext</label>
+          <textarea id="pickup-note" name="note" placeholder="Zum Beispiel, von wo du ungefähr anreisen möchtest, ob du eine Mitfahrgelegenheit suchst oder selbst eine anbieten kannst." required></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="button" type="submit">Interesse anmelden</button>
+      </div>
+    </form>
+    <div class="status-message" data-form-status hidden></div>
+  </div>
   <div class="form-shell faq-question-form">
     <div class="section-header section-header--compact">
       <h2>Stell deine noch offenen Fragen hier:</h2>
@@ -80,8 +99,8 @@
   <script src="assets/js/app.js"></script>
   <script src="assets/js/navigation.js"></script>
   <script src="assets/js/forms.js"></script>
-  <script src="assets/data/faq.js"></script>
-  <script src="assets/js/render-faq.js"></script>
+  <script src="assets/data/faq.js?v=20260712-2"></script>
+  <script src="assets/js/render-faq.js?v=20260712-2"></script>
   <script src="assets/js/doomsday-theme.js"></script>
 </body>
 </html>

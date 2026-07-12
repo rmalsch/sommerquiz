@@ -309,6 +309,11 @@ button.button:hover {
 .event-briefing {
   display: grid;
   gap: 1rem;
+  align-content: start;
+}
+
+.event-briefing .section-header {
+  margin-bottom: 0;
 }
 
 .event-briefing__grid {
@@ -358,6 +363,40 @@ button.button:hover {
 
 .faq-question-form {
   margin-top: 1.2rem;
+}
+
+.news-newsletter {
+  margin-top: 1.5rem;
+}
+
+.faq-question-form {
+  margin-top: 1.5rem;
+}
+
+.travel-connections {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0.85rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.pickup-interest-form {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.pickup-interest-form h3,
+.pickup-interest-form p {
+  margin: 0;
+}
+
+.pickup-interest-form textarea {
+  min-height: 5rem;
 }
 
 .entry,
@@ -788,6 +827,88 @@ textarea {
 .inline-note {
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+.access-next-steps {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.access-next-steps h3,
+.access-next-steps p {
+  margin: 0;
+}
+
+.access-next-steps__list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.access-next-steps__list li {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.35fr) 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--line);
+}
+
+.access-next-steps__list a,
+.access-next-steps__label {
+  font-weight: 800;
+}
+
+.access-next-steps__list .is-important a::after,
+.access-next-steps__list .is-important .access-next-steps__label::after {
+  content: " · wichtig";
+  color: var(--accent-strong);
+  font-size: 0.78em;
+  text-transform: uppercase;
+}
+
+.access-next-steps.is-compact {
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+  line-height: 1.5;
+}
+
+.access-next-steps__links {
+  display: grid;
+  justify-items: start;
+  gap: 0.6rem;
+  padding-block: 0.1rem 0.25rem;
+}
+
+.access-next-steps__links a {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28rem;
+}
+
+.access-next-steps__links a.is-important {
+  font-weight: 900;
+}
+
+.access-next-steps__links a::before {
+  content: "› ";
+  text-decoration: none;
+}
+
+.access-reset-actions {
+  display: flex;
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .access-next-steps__list li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
 }
 
 .gallery-removal-note {
