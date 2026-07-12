@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Passwort · Sommerquiz</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/doomsday-theme.css" />
+  <link rel="stylesheet" href="assets/css/riddle-gate.css" />
+</head>
+<body class="theme-doom theme-doom--full riddle-page">
+  <div class="doom-particles" data-doom-particles aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Zur Startseite">
+          <span class="brand__mark">☀️</span>
+          <span class="brand__text">
+            <span class="brand__title"></span>
+            <span class="brand__subtitle"></span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menü</button>
+        <nav class="site-nav" data-site-nav aria-label="Hauptnavigation"></nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="page-main">
+        <section class="riddle-hero">
+          <span class="kicker">Der Weg zum Zugangscode</span>
+          <h1>Prüfung des Quizmasters</h1>
+          <p class="lead">Stellst du dich der Prüfung?</p>
+        </section>
+
+        <section class="riddle-shell card section-card" aria-label="Passwort-Rätsel">
+          <div class="riddle-progress" aria-label="Spielfortschritt">
+            <span data-riddle-step-indicator="0">Spiel 1</span>
+            <span data-riddle-step-indicator="1">Spiel 2</span>
+            <span data-riddle-step-indicator="2">Spiel 3</span>
+            <span data-riddle-step-indicator="3">Spiel 4</span>
+            <span data-riddle-step-indicator="4">Spiel 5</span>
+            <span data-riddle-step-indicator="5">Spiel 6</span>
+          </div>
+
+          <div class="riddle-navigation" aria-label="Navigation zwischen den Spielen">
+            <button type="button" data-riddle-nav-prev aria-label="Vorheriges Spiel" title="Vorheriges Spiel">&larr;</button>
+            <button type="button" data-riddle-nav-next aria-label="Nächstes Spiel" title="Nächstes Spiel">&rarr;</button>
+          </div>
+
+          <section class="riddle-step is-active" data-riddle-step="0">
+            <h2>Spiel 1</h2>
+            <p>Finde alle Paare aus den Sommerquiz-Motiven in höchstens 18 Zügen. Ein Zug besteht aus zwei aufgedeckten Karten.</p>
+            <div class="memory-meta">
+              <span data-memory-score>0 / 18 Züge</span>
+              <button class="button button--secondary" type="button" data-memory-reset>Neu mischen</button>
+            </div>
+            <div class="memory-grid" data-memory-grid></div>
+            <p class="inline-note" data-riddle-feedback="0" aria-live="polite" hidden></p>
+          </section>
+
+          <section class="riddle-step" data-riddle-step="1">
+            <h2>Spiel 2</h2>
+            <p>Ermittle die Farbreihenfolge in 8 Versuchen. Farben können mehrfach vorkommen. Grün markiert einen exakten Treffer, Gelb eine richtige Farbe an der falschen Position.</p>
+            <div class="mastermind-board">
+              <div class="mastermind-current" aria-label="Aktueller Versuch">
+                <button type="button" data-mm-slot="0" aria-label="Pin 1 entfernen"></button>
+                <button type="button" data-mm-slot="1" aria-label="Pin 2 entfernen"></button>
+                <button type="button" data-mm-slot="2" aria-label="Pin 3 entfernen"></button>
+                <button type="button" data-mm-slot="3" aria-label="Pin 4 entfernen"></button>
+              </div>
+
+              <div class="mastermind-palette" aria-label="Farbauswahl">
+                <button type="button" data-mm-token="sun" aria-label="Orangenen Pin setzen"></button>
+                <button type="button" data-mm-token="green" aria-label="Grünen Pin setzen"></button>
+                <button type="button" data-mm-token="blue" aria-label="Blauen Pin setzen"></button>
+                <button type="button" data-mm-token="red" aria-label="Roten Pin setzen"></button>
+                <button type="button" data-mm-token="white" aria-label="Gelben Pin setzen"></button>
+                <button type="button" data-mm-token="violet" aria-label="Violetten Pin setzen"></button>
+              </div>
+
+              <div class="form-actions">
+                <button class="button" type="button" data-mm-submit>Versuch prüfen</button>
+                <button class="button button--secondary" type="button" data-mm-clear>Reihe leeren</button>
+                <button class="button button--secondary" type="button" data-mm-reset>Neuen Code erzeugen</button>
+              </div>
+
+              <p class="inline-note" data-mm-status aria-live="polite">Wähle vier Farben aus.</p>
+              <div class="mastermind-history" data-mm-history aria-live="polite"></div>
+            </div>
+          </section>
+
+          <section class="riddle-step" data-riddle-step="2">
+            <h2>Spiel 3</h2>
+            <p>Merke dir die zufällige Folge und klicke sie anschließend in derselben Reihenfolge an. Jede Runde wird länger. Schaffe 3 Runden.</p>
+            <div class="sequence-grid" data-sequence-grid>
+              <button type="button" data-sequence-cell="0" aria-label="Feld 1"></button>
+              <button type="button" data-sequence-cell="1" aria-label="Feld 2"></button>
+              <button type="button" data-sequence-cell="2" aria-label="Feld 3"></button>
+              <button type="button" data-sequence-cell="3" aria-label="Feld 4"></button>
+              <button type="button" data-sequence-cell="4" aria-label="Feld 5"></button>
+              <button type="button" data-sequence-cell="5" aria-label="Feld 6"></button>
+              <button type="button" data-sequence-cell="6" aria-label="Feld 7"></button>
+              <button type="button" data-sequence-cell="7" aria-label="Feld 8"></button>
+              <button type="button" data-sequence-cell="8" aria-label="Feld 9"></button>
+            </div>
+            <div class="form-actions">
+              <button class="button button--secondary" type="button" data-sequence-play>Start</button>
+            </div>
+            <p class="inline-note" data-riddle-feedback="2" aria-live="polite" hidden></p>
+          </section>
+
+          <section class="riddle-step" data-riddle-step="3">
+            <h2>Spiel 4</h2>
+            <p>Stoppe den Impuls dreimal im grünen Bereich.</p>
+            <div class="timing-tracks" data-timing-tracks aria-label="Impulsleisten"></div>
+            <div class="form-actions">
+              <button class="button" type="button" data-timing-toggle>Impuls starten</button>
+            </div>
+            <p class="inline-note" data-riddle-feedback="3" aria-live="polite" hidden></p>
+          </section>
+
+          <section class="riddle-step" data-riddle-step="4">
+            <h2>Spiel 5</h2>
+            <p>Errate ein deutsches Wort in 6 Versuchen. Grün bedeutet richtiger Buchstabe am richtigen Ort, Gelb bedeutet richtiger Buchstabe am falschen Ort.</p>
+            <div class="wordle-board" data-wordle-board aria-label="Wördel-Spielfeld"></div>
+            <div class="wordle-keyboard" data-wordle-keyboard aria-label="Wördel-Tastatur"></div>
+            <div class="form-actions">
+              <button class="button button--secondary" type="button" data-wordle-reset>Neues Wort</button>
+            </div>
+            <p class="inline-note" data-wordle-status aria-live="polite">Tippe fünf Buchstaben oder nutze die Tastatur.</p>
+          </section>
+
+          <section class="riddle-step" data-riddle-step="5">
+            <h2>Spiel 6</h2>
+            <p>Verschiebe die acht Bildteile über das freie Feld, bis das Motiv wieder vollständig ist.</p>
+            <div class="slide-puzzle" data-slide-puzzle aria-label="Schiebepuzzle"></div>
+            <div class="puzzle-meta">
+              <span data-slide-status aria-live="polite">0 Züge</span>
+              <button class="button button--secondary" type="button" data-slide-reset>Neu mischen</button>
+            </div>
+          </section>
+
+          <section class="riddle-step riddle-final" data-riddle-step="6">
+            <span class="kicker">Prüfung des Quizmasters bestanden</span>
+            <h2>Glückwunsch!</h2>
+            <p>Mit diesem Passwort kannst du auf der Startseite die weiteren Bereiche freischalten:</p>
+            <div class="revealed-code" data-revealed-code>......</div>
+            <div class="form-actions">
+              <a class="button" href="index.html#zugang">Zur Passworteingabe</a>
+              <button class="button button--secondary" type="button" data-riddle-reset>Nochmal spielen</button>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner" data-site-footer></div>
+    </footer>
+  </div>
+
+  <script src="assets/data/site-config.js"></script>
+  <script src="assets/data/wordle-words.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/doomsday-theme.js"></script>
+  <script src="assets/js/riddle-gate.js"></script>
+</body>
+</html>

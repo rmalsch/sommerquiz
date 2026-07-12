@@ -1,77 +1,36 @@
-const countdownEvents = [
-    {
-        time: new Date("July 4, 2025 18:00:00").getTime(),
-        buttonId: "revealButton1",
-        textId: "hiddenTextField1"
-    },
-    {
-        time: new Date("July 8, 2025 18:00:00").getTime(),
-        buttonId: "revealButton2",
-        textId: "hiddenTextField2"
-    },
-    {
-        time: new Date("July 12, 2025 18:00:00").getTime(),
-        buttonId: "revealButton3",
-        textId: "hiddenTextField3"
-    }
-];
-
-function updateCountdown() {
-    const now = Date.now();
-
-    // Alle Buttons aktivieren, deren Zeit schon vorbei ist
-    countdownEvents.forEach(event => {
-        if (event.time <= now) {
-            const btn = document.getElementById(event.buttonId);
-            if (btn) btn.disabled = false;
-        }
-    });
-
-    // Finde das nächste Event in der Zukunft
-    const nextEvent = countdownEvents.find(event => event.time > now);
-
-    if (!nextEvent) {
-        // Kein zukünftiges Event mehr → Countdown auf 0 setzen
-        document.getElementById("days").textContent = "0";
-        document.getElementById("hours").textContent = "0";
-        document.getElementById("minutes").textContent = "0";
-        document.getElementById("seconds").textContent = "0";
-        return;
+(function () {
+  function getRemaining(targetDate) {
+    const diff = targetDate.getTime() - Date.now();
+    if (diff <= 0) {
+      return { expired: true, days: 0, hours: 0, minutes: 0, seconds: 0 };
     }
 
-    // Countdown berechnen
-    const timeLeft = nextEvent.time - now;
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    return { expired: false, days, hours, minutes, seconds };
+  }
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+  function renderCountdown() {
+    const root = document.querySelector("[data-countdown]");
+    if (!root || !window.SiteConfig) return;
 
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
+    const target = new Date(window.SiteConfig.eventDate);
+    const values = getRemaining(target);
 
-    // Wiederholen
-    setTimeout(updateCountdown, 1000);
-}
+    root.querySelector("[data-unit='days']").textContent = values.days;
+    root.querySelector("[data-unit='hours']").textContent = values.hours;
+    root.querySelector("[data-unit='minutes']").textContent = values.minutes;
+    root.querySelector("[data-unit='seconds']").textContent = values.seconds;
 
-// Tipp-Anzeige toggeln
-function toggleTextField(buttonId, textId) {
-    const textField = document.getElementById(textId);
-    const button = document.getElementById(buttonId);
+    const status = root.querySelector("[data-countdown-status]");
+    if (status) status.textContent = "";
+  }
 
-    if (!textField || !button) return;
-
-    const isHidden = textField.style.display === "none" || textField.style.display === "";
-    textField.style.display = isHidden ? "block" : "none";
-
-    // Hol festen Label-Text vom data-Attribut
-    // const label = button.getAttribute("data-label") || "";
-
-    // Setze Button-Text mit festem Label und dynamischem Zusatz
-    // button.textContent = label + (isHidden ? " aus" : " an");
-}
-
-
-updateCountdown();
+  document.addEventListener("DOMContentLoaded", () => {
+    renderCountdown();
+    setInterval(renderCountdown, 1000);
+  });
+})();

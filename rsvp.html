@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zusage · Sommerquiz</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/doomsday-theme.css" />
+</head>
+<body class="theme-doom theme-doom--full" data-protected="true">
+  <div class="doom-particles" data-doom-particles aria-hidden="true"></div>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Zur Startseite">
+          <span class="brand__mark">☀️</span>
+          <span class="brand__text">
+            <span class="brand__title"></span>
+            <span class="brand__subtitle"></span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menü</button>
+        <nav class="site-nav" data-site-nav aria-label="Hauptnavigation"></nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="page-main">
+        
+      <section class="section-card notice access-required" data-access-required hidden>
+        <strong>Dieser Bereich öffnet sich mit dem Passwort aus der Einladung.</strong>
+        <p class="inline-note">Gib das Passwort auf der Startseite ein, dann findest du hier alles Weitere.</p>
+        <a class="button button--secondary" href="index.html">Zur Startseite</a>
+      </section>
+    
+        <div data-protected-content hidden>
+          
+<section class="card section-card page-card">
+    <div class="section-header">
+      <h1>Zusage</h1>
+      <p>Für die weitere Planung wäre es super, wenn Ihr Euch möglichst zeitnah zurückmeldet, ob Ihr teilnehmen könnt.</p>
+    </div>
+    <div class="form-shell">
+      <form data-form-kind="rsvp">
+        <div class="form-grid form-grid--single">
+          <div class="field field--full">
+            <label for="rsvp-names">Name / Namen der teilnehmenden Personen</label>
+            <textarea id="rsvp-names" name="names" placeholder="Eine Person pro Zeile" required></textarea>
+            <p class="inline-note">Bitte tragt jede Person in eine eigene Zeile ein.</p>
+          </div>
+          <div class="field field--full">
+            <label for="rsvp-comment">Hinweis für den Abend</label>
+            <textarea id="rsvp-comment" name="comment" placeholder="Optional, z. B. Unverträglichkeiten, spätere Ankunft oder eine Nachricht an den Quizmaster"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="button" type="submit">Zusage absenden</button>
+        </div>
+      </form>
+      <div class="status-message" data-form-status hidden></div>
+    </div>
+    <div class="live-inline-slot"><p class="inline-note" data-rsvp-counter-inline hidden>Am Quiztisch sind bereits <strong data-rsvp-counter-inline-value>–</strong> Plätze belegt.</p></div>
+</section>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner" data-site-footer></div>
+    </footer>
+  </div>
+
+  <script src="assets/data/site-config.js"></script>
+  <script src="assets/data/forms.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/forms.js"></script>
+  <script src="assets/js/live-data.js"></script>
+  <script src="assets/js/doomsday-theme.js"></script>
+</body>
+</html>

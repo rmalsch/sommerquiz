@@ -1,416 +1,154 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<title>Quizday is Coming</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --glow: rgba(33, 171, 105, 0.85);
-  --glow-soft: rgba(43, 255, 154, 0.35);
-  --hud: #b6ffdc;
-  --bg1: #0c1f18;
-  --bg2: #050607;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: radial-gradient(circle at center, var(--bg1) 0%, var(--bg2) 75%);
-  overflow: hidden;
-  font-family: "Orbitron", monospace;
-  color: var(--hud);
-}
-
-#bg-logo {
-  position: fixed;
-  inset: -75%;
-  background: url("images/logo-sq-4k-2.png") center / contain no-repeat;
-  opacity: 0.1;
-  filter: blur(1.5px) drop-shadow(0 0 120px var(--glow-soft));
-  z-index: 0;
-  pointer-events: none;
-  animation: drift 100s ease-in-out infinite, slow-rotate 100s ease-in-out infinite;
-}
-
-@keyframes drift {
-  0%   { transform: scale(1) translateY(0px); }
-  50%  { transform: scale(1.08) translateY(-14px); }
-  100% { transform: scale(1) translateY(0px); }
-}
-
-@keyframes slow-rotate {
-  0%   { rotate: -0.25deg; }
-  50%  { rotate: 0.25deg; }
-  100% { rotate: -0.25deg; }
-}
-
-#scene {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  animation: flicker 6s infinite;
-}
-
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  48% { opacity: .965; }
-  50% { opacity: .89; }
-  52% { opacity: .975; }
-}
-
-#countdown-wrap {
-  max-width: 90vw;
-  width: 600px;
-  padding: 40px 30px;
-  text-align: center;
-  border: 1px solid rgba(43,255,154,0.28);
-  box-shadow:
-    0 0 22px rgba(43,255,154,0.18),
-    inset 0 0 22px rgba(43,255,154,0.12);
-  background: rgba(0,0,0,0.15);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#countdown-wrap h1 {
-  font-family: "Orbitron", monospace;
-  font-weight: 400;
-  font-size: clamp(1.1rem, 4vw, 1.1rem);
-  margin: 0 0 20px;
-  letter-spacing: 0.1em;
-}
-
-#countdown {
-  display: flex;
-  gap: 8px;
-  font-size: clamp(1.8rem, 6vw, 3rem);
-  text-align: center;
-  text-shadow: 0 0 1px var(--glow), 0 0 8px var(--glow-soft);
-  flex-wrap: nowrap;
-}
-
-#countdown span {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.digit {
-  display: inline-block;
-  position: relative;
-  height: 1.5em;
-  overflow: hidden;
-  min-width: 2ch;
-}
-
-.digit span {
-  display: block;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  opacity: 1;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-}
-
-.digit .current { transform: translateY(0%); }
-.digit .next { transform: translateY(-100%); opacity: 0; }
-
-#countdown span small { font-size: 0.5rem; opacity: 0.6; }
-
-#grain {
-  position: fixed;
-  inset: 0;
-  background-image:
-    repeating-radial-gradient(circle at center,
-      rgba(255,255,255,0.15) 0px,
-      rgba(255,255,255,0.15) 1px,
-      rgba(0,0,0,0) 2px);
-  mix-blend-mode: overlay;
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.particle {
-  position: fixed;
-  background: rgba(255,255,255,0.07);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  animation: float 8s linear infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0.2; }
-  50% { opacity: 0.35; }
-  100% { transform: translateY(-100vh) translateX(50px) scale(0.5); opacity: 0.2; }
-}
-
-#light-beams {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, rgba(124, 178, 111, 0.15) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-  animation: beamShift 12s infinite alternate;
-}
-
-@keyframes beamShift {
-  0% { transform: rotate(0deg) scale(0.7); }
-  100% { transform: rotate(30deg) scale(1); }
-}
-
-#hint {
-  position: fixed;
-  bottom: 18px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  opacity: 0.45;
-  z-index: 4;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Start · Sommerquiz</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/doomsday-theme.css" />
 </head>
-<body>
+<body class="theme-doom theme-doom--full theme-doom--counter-logo">
+  <div class="doom-particles" data-doom-particles aria-hidden="true"></div>
+  <button class="doom-audio-toggle" type="button" data-doom-audio-toggle>Tickger&auml;usche starten</button>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Zur Startseite">
+          <span class="brand__mark">☀️</span>
+          <span class="brand__text">
+            <span class="brand__title"></span>
+            <span class="brand__subtitle"></span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menü</button>
+        <nav class="site-nav" data-site-nav aria-label="Hauptnavigation"></nav>
+      </div>
+    </header>
 
-<div id="bg-logo"></div>
-<div id="light-beams"></div>
+    <main class="site-main">
+      <div class="page-main">
+        
+        <div data-protected-content>
+          
+<section class="hero">
+  <section class="card hero__copy">
+    <span class="kicker">Bereits das dritte Mal</span>
+    <h1>Sommerquiz 2026</h1>
+    <p class="lead" id="intro-text"></p>
+  </section>
 
-<div id="scene">
-  <div id="countdown-wrap">
-    <h1>QUIZDAY IS COMING</h1>
-    <div id="countdown">
-      <span><span class="digit"><span class="current" id="months">00</span><span class="next"></span></span><small>MONTHS</small></span>
-      <span>:</span>
-      <span><span class="digit"><span class="current" id="days">00</span><span class="next"></span></span><small>DAYS</small></span>
-      <span>:</span>
-      <span><span class="digit"><span class="current" id="hours">00</span><span class="next"></span></span><small>HOURS</small></span>
-      <span>:</span>
-      <span><span class="digit"><span class="current" id="minutes">00</span><span class="next"></span></span><small>MINUTES</small></span>
-      <span>:</span>
-      <span><span class="digit"><span class="current" id="seconds">00</span><span class="next"></span></span><small>SECONDS</small></span>
+  <aside class="card hero__side">
+    <section class="countdown" data-countdown>
+      <div>
+        <span class="kicker">Das Quiz rückt näher</span>
+        <h2 style="margin-top:0.8rem;">Countdown</h2>
+      </div>
+      <div class="countdown__grid">
+        <div class="countdown__item">
+          <div class="countdown__value" data-unit="days">0</div>
+          <div class="countdown__label">Tage</div>
+        </div>
+        <div class="countdown__item">
+          <div class="countdown__value" data-unit="hours">0</div>
+          <div class="countdown__label">Stunden</div>
+        </div>
+        <div class="countdown__item">
+          <div class="countdown__value" data-unit="minutes">0</div>
+          <div class="countdown__label">Minuten</div>
+        </div>
+        <div class="countdown__item">
+          <div class="countdown__value" data-unit="seconds">0</div>
+          <div class="countdown__label">Sekunden</div>
+        </div>
+      </div>
+      <p class="inline-note" data-countdown-status></p>
+      <div class="live-inline-slot"><p class="inline-note" data-rsvp-counter-inline hidden>Am Quiztisch sind bereits <strong data-rsvp-counter-inline-value>–</strong> Plätze belegt.</p></div>
+    </section>
+  </aside>
+</section>
+
+<section class="grid grid--two landing-grid">
+  <section class="card section-card" id="zugang">
+    <div class="section-header">
+      <span class="kicker">Prüfung des Quizmasters</span>
+      <h2 style="margin-top:0.8rem;">Passworteingabe</h2>
     </div>
+
+    <div class="notice access-riddle-callout">
+      <strong>Noch keinen Zugangscode?</strong>
+      <p class="inline-note">Stelle dich der Prüfung des Quizmasters und beweise dich!</p>
+      <div class="form-actions">
+        <a class="button button--secondary" href="raetsel.html">Zur Prüfung</a>
+      </div>
+    </div>
+
+    <div class="access-panel" data-password-panel>
+      <form class="access-form" data-password-form>
+        <div class="field">
+          <label for="password">Code</label>
+          <input id="password" name="password" type="password" placeholder="Zugangscode eingeben" autocomplete="off" />
+        </div>
+        <div class="form-actions">
+          <button class="button" type="submit">Freischalten</button>
+        </div>
+      </form>
+      <div class="status-message" data-password-feedback hidden></div>
+    </div>
+
+    <div class="notice hidden" data-access-granted>
+      <strong>Zugang freigeschaltet.</strong>
+      <p class="inline-note">Weitere Navigationspunkte sind nun verfügbar.</p>
+      <div class="form-actions">
+        <button class="button button--secondary" type="button" data-reset-access>Zugang zurücksetzen</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section-card event-briefing" aria-label="Eventdaten">
+    <div class="section-header">
+      <span class="kicker">Neue Location</span>
+      <h2 style="margin-top:0.8rem;">Wann und wo?</h2>
+    </div>
+    <dl style="margin-top:-2.0rem;" class="event-briefing__grid">
+      <div>
+        <dt>Datum</dt>
+        <dd data-event-date>–</dd>
+      </div>
+      <div>
+        <dt>Einlass</dt>
+        <dd data-event-admission-time>–</dd>
+      </div>
+      <div>
+        <dt>Quizbeginn</dt>
+        <dd data-event-start-time>–</dd>
+      </div>
+      <div>
+        <dt>Ort</dt>
+        <dd data-event-location>–</dd>
+      </div>
+    </dl>
+  </section>
+
+</section>
+
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner" data-site-footer></div>
+    </footer>
   </div>
-</div>
 
-<div id="grain"></div>
-<audio id="tick1" src="sounds/tick1.mp3" preload="auto"></audio>
-<audio id="tick2" src="sounds/tick2.mp3" preload="auto"></audio>
-<div id="hint">CLICK ANYWHERE TO ACTIVATE SOUND</div>
-
-<script>
-// Ziel-Datum
-const target = new Date("2026-08-01T16:00:00");
-
-// Flip-Funktion
-function flipDigit(el, newVal) {
-  if (!pageVisible) {
-    el.querySelector(".current").textContent = newVal;
-    return;
-  }
-  const current = el.querySelector('.current');
-  const next = el.querySelector('.next');
-  if (current.textContent === newVal) return;
-  next.textContent = newVal;
-  next.style.transform = 'translateY(-100%)';
-  next.style.opacity = '1';
-  current.style.transform = 'translateY(0%)';
-  current.style.opacity = '1';
-  requestAnimationFrame(() => {
-    current.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-    next.style.transition = 'transform 0.3s ease';
-    current.style.transform = 'translateY(10%)';
-    current.style.opacity = '0';
-    next.style.transform = 'translateY(0%)';
-  });
-  setTimeout(() => {
-    current.textContent = newVal;
-    current.style.transition = 'none';
-    next.style.transition = 'none';
-    current.style.transform = 'translateY(0%)';
-    current.style.opacity = '1';
-    next.style.transform = 'translateY(-100%)';
-    next.style.opacity = '0';
-  }, 300);
-}
-
-// Countdown-Elemente
-const digits = {
-  months: document.getElementById('months').parentElement,
-  days: document.getElementById('days').parentElement,
-  hours: document.getElementById('hours').parentElement,
-  minutes: document.getElementById('minutes').parentElement,
-  seconds: document.getElementById('seconds').parentElement,
-};
-
-// Echte Monate und Tage berechnen
-function getMonthsAndDays(start, end) {
-  let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
-
-  // Prüfen, ob der Tag im Endmonat kleiner ist als Starttag → dann 1 Monat weniger
-  if (end.getDate() < start.getDate()) {
-    months--;
-  }
-
-  // Resttage berechnen
-  const temp = new Date(start.getTime());
-  temp.setMonth(temp.getMonth() + months);
-  let days = Math.floor((end - temp) / (1000*60*60*24));
-
-  return { months, days };
-}
-
-let pageVisible = true;
-
-document.addEventListener("visibilitychange", () => {
-  pageVisible = !document.hidden;
-  if (pageVisible) {
-    forceUpdate(); // harten Reset machen
-  }
-});
-
-function forceUpdate() {
-  const now = new Date();
-  if (now >= target) return;
-
-  let months =
-    (target.getFullYear() - now.getFullYear()) * 12 +
-    (target.getMonth() - now.getMonth());
-
-  const monthCheck = new Date(now);
-  monthCheck.setMonth(monthCheck.getMonth() + months);
-  if (monthCheck > target) months--;
-
-  const days = Math.floor((target - monthCheck) / (1000 * 60 * 60 * 24));
-  const afterDays = new Date(monthCheck);
-  afterDays.setDate(afterDays.getDate() + days);
-
-  let diff = target - afterDays;
-  if (diff < 0) diff = 0;
-
-  const values = {
-    months: String(months).padStart(2,"0"),
-    days: String(days).padStart(2,"0"),
-    hours: String(Math.floor(diff / 36e5)).padStart(2,"0"),
-    minutes: String(Math.floor(diff / 6e4) % 60).padStart(2,"0"),
-    seconds: String(Math.floor(diff / 1000) % 60).padStart(2,"0")
-  };
-
-  for (const key in values) {
-    const el = digits[key];
-    const current = el.querySelector(".current");
-    const next = el.querySelector(".next");
-
-    current.textContent = values[key];
-    current.style.transition = "none";
-    current.style.transform = "translateY(0)";
-    current.style.opacity = "1";
-
-    next.style.transition = "none";
-    next.style.transform = "translateY(-100%)";
-    next.style.opacity = "0";
-  }
-}
-
-
-
-function updateCountdown() {
-  const now = new Date();
-  if (now >= target) return;
-
-  // --- Monate sauber zählen ---
-  let months =
-    (target.getFullYear() - now.getFullYear()) * 12 +
-    (target.getMonth() - now.getMonth());
-
-  const monthCheck = new Date(now);
-  monthCheck.setMonth(monthCheck.getMonth() + months);
-
-  if (monthCheck > target) {
-    months--;
-    monthCheck.setMonth(monthCheck.getMonth() - 1);
-  }
-
-  // --- Resttage ---
-  const days = Math.floor((target - monthCheck) / (1000 * 60 * 60 * 24));
-
-  // --- Restzeit nach ganzen Tagen ---
-  const afterDays = new Date(monthCheck);
-  afterDays.setDate(afterDays.getDate() + days);
-
-  let diff = target - afterDays;
-  if (diff < 0) diff = 0;
-
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const minutes = Math.floor(diff / (1000 * 60)) % 60;
-  const seconds = Math.floor(diff / 1000) % 60;
-
-  flipDigit(digits.months, String(months).padStart(2, "0"));
-  flipDigit(digits.days,   String(days).padStart(2, "0"));
-  flipDigit(digits.hours, String(hours).padStart(2, "0"));
-  flipDigit(digits.minutes, String(minutes).padStart(2, "0"));
-  flipDigit(digits.seconds, String(seconds).padStart(2, "0"));
-}
-
-
-
-setInterval(updateCountdown, 250);
-updateCountdown();
-
-// --- Zwei Tick-Sounds abwechselnd ---
-const tick1 = document.getElementById("tick1");
-const tick2 = document.getElementById("tick2");
-tick1.volume = tick2.volume = 0.35;
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function startAudio(audio) {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  audio.currentTime = 0;
-  audio.play().catch(()=>console.log("Autoplay blockiert"));
-}
-
-let lastSecond = -1;
-let toggle = true;
-function tickSync() {
-  const now = new Date();
-  const seconds = Math.floor((target - now) / 1000) % 60;
-  if (seconds !== lastSecond) {
-    lastSecond = seconds;
-    if (toggle) startAudio(tick1);
-    else startAudio(tick2);
-    toggle = !toggle;
-  }
-}
-setInterval(tickSync, 200);
-
-document.body.addEventListener("click", () => {
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  document.getElementById("hint").style.display = "none";
-});
-
-// Partikel
-for(let i=0;i<40;i++){
-  const p = document.createElement('div');
-  p.className='particle';
-  p.style.width = p.style.height = (Math.random()*15 + 1)+'px';
-  p.style.left = Math.random()*100+'vw';
-  p.style.top = Math.random()*100+'vh';
-  p.style.animationDuration = (6+Math.random()*6)+'s';
-  document.body.appendChild(p);
-}
-</script>
+  <script src="assets/data/site-config.js"></script>
+  <script src="assets/data/forms.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/forms.js"></script>
+  <script src="assets/js/live-data.js"></script>
+  <script src="assets/js/countdown.js"></script>
+  <script src="assets/js/doomsday-theme.js"></script>
 </body>
 </html>

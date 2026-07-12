@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mitbringen · Sommerquiz</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/doomsday-theme.css" />
+</head>
+<body class="theme-doom theme-doom--full" data-protected="true">
+  <div class="doom-particles" data-doom-particles aria-hidden="true"></div>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Zur Startseite">
+          <span class="brand__mark">☀️</span>
+          <span class="brand__text">
+            <span class="brand__title"></span>
+            <span class="brand__subtitle"></span>
+          </span>
+        </a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menü</button>
+        <nav class="site-nav" data-site-nav aria-label="Hauptnavigation"></nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="page-main">
+        
+      <section class="section-card notice access-required" data-access-required hidden>
+        <strong>Dieser Bereich öffnet sich mit dem Passwort aus der Einladung.</strong>
+        <p class="inline-note">Gib das Passwort auf der Startseite ein, dann findest du hier alles Weitere.</p>
+        <a class="button button--secondary" href="index.html">Zur Startseite</a>
+      </section>
+    
+        <div data-protected-content hidden>
+          
+<section class="grid grid--two">
+  <section class="card section-card">
+    <div class="section-header">
+      <h1>Speis und Trank</h1>
+      <p>Möchtest du etwas zum Sommerquiz-Buffet beisteuern?</p>
+    </div>
+    <div class="form-shell">
+      <form data-form-kind="bring">
+        <div class="form-grid">
+          <div class="field">
+            <label for="bring-name">Name</label>
+            <input id="bring-name" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="bring-quantity">Menge</label>
+            <input id="bring-quantity" name="quantity" type="text" placeholder="optional, z. B. 1 Schüssel" />
+          </div>
+          <div class="field field--full">
+            <label for="bring-item">Was bringst du mit?</label>
+            <input id="bring-item" name="item" type="text" required />
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="button" type="submit">Eintrag absenden</button>
+        </div>
+      </form>
+      <div class="status-message" data-form-status hidden></div>
+    </div>
+    <p>Achtung:<br>Wir haben nur begrenzt Platz, um kalte Speisen zu kühlen.</p>
+  </section>
+
+  <section class="card section-card">
+    <div class="section-header">
+      <h2>Bisherige Beiträge</h2>
+      <p>Klassisches Grillgut sowie eine kleine Getränkeauswahl mit Limonaden, Spezi und Wasser stellt der Quizmaster bereit.</p>
+    </div>
+    <div class="list-state" data-contribution-loading>Die bisherigen Beiträge werden geladen …</div>
+    <div class="list-state" data-contribution-error hidden>Die Liste konnte gerade nicht geladen werden. Versuch es bitte gleich noch einmal.</div>
+    <div class="stack" data-contribution-list></div>
+  </section>
+</section>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner" data-site-footer></div>
+    </footer>
+  </div>
+
+  <script src="assets/data/site-config.js"></script>
+  <script src="assets/data/forms.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/forms.js"></script>
+  <script src="assets/js/live-data.js"></script>
+  <script src="assets/js/doomsday-theme.js"></script>
+</body>
+</html>
