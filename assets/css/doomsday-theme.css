@@ -329,7 +329,14 @@
   text-shadow: 0 0 12px rgba(53, 240, 154, 0.2);
 }
 
-.theme-doom .access-next-steps__links a:hover {
+.theme-doom .faq-inline-link {
+  color: #c8ffe1;
+  text-decoration-color: rgba(53, 240, 154, 0.55);
+  text-shadow: 0 0 12px rgba(53, 240, 154, 0.2);
+}
+
+.theme-doom .access-next-steps__links a:hover,
+.theme-doom .faq-inline-link:hover {
   color: #ffffff;
   text-decoration-color: rgba(183, 255, 217, 0.9);
 }

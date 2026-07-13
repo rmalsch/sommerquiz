@@ -829,6 +829,18 @@ textarea {
   font-size: 0.95rem;
 }
 
+.faq-inline-link {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28rem;
+}
+
+.faq-inline-link::before {
+  content: "\203A  ";
+  text-decoration: none;
+}
+
 .access-next-steps {
   display: grid;
   gap: 0.65rem;

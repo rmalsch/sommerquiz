@@ -38,7 +38,7 @@ window.BlogEntries = [
   {
     id: "blog-003",
     title: "Fortsetzung folgt ...",
-    date: "2027",
+    date: "2026",
     teaser: "",
     body: `
     

@@ -8,11 +8,11 @@ window.FaqEntries = [
       },
       {
         question: "Was erwartet mich?",
-        answer: "Ein gemeinsamer, sommerlicher Quiz- und Spieleabend mit Teams, kleinen Überraschungen und genügend Gelegenheit für Essen, Getränke und Gespräche."
+        answer: "Ein gemeinsamer, sommerlicher Quiz- und Spieleabend mit Teams, kleinen Überraschungen und genügend Gelegenheit für Essen, Getränke und Gespräche. Die <a class=\"faq-inline-link\" href=\"gallery.html\">Chronik</a> vermittelt einen guten ersten Eindruck."
       },
       {
         question: "Wann ist das Sommerquiz zu Ende?",
-        answer: "Geplant ist ein Ende des Quiz-Teils gegen 22:00 Uhr, spätestens 23:00 Uhr. Danach wird der Abend in lockerer Runde ausklingen."
+        answer: "Geplant ist ein Ende des Quiz-Teils gegen 22:00 Uhr, spätestens 23:00 Uhr. Danach wird der Abend in lockerer Runde ausklingen. Ob sich der Quizmaster allerdings an diesen Plan hält, bleibt abzuwarten."
       }
     ]
   },
@@ -25,7 +25,7 @@ window.FaqEntries = [
       },
       {
         question: "Anreise & Parken",
-        answer: "Öffentliche Verkehrsmittel sind grundsätzlich möglich, aber nicht ganz optimal. Am einfachsten ist die Anreise vermutlich mit dem Auto; auf dem Vereinsgelände stehen ausreichend Parkplätze zur Verfügung.<br><br>Falls Ihr aus Halle anreist und noch einen Platz im Auto frei habt oder braucht, tragt es gern im Formular ein. So kann der Quizmaster mögliche Mitfahrgelegenheiten koordinieren.<br><br>Wer mit dem Zug kommt, fährt am besten bis Nauendorf. Von dort sind es mit dem Auto nur etwa fünf Minuten bis zum Vereinsgelände, sodass sich auch für diese kurze Strecke Mitfahrgelegenheiten organisieren lassen.",
+        answer: "Öffentliche Verkehrsmittel sind grundsätzlich möglich, aber nicht ganz optimal. Am einfachsten ist die Anreise vermutlich mit dem Auto; auf dem Vereinsgelände stehen ausreichend Parkplätze zur Verfügung.<br><br>Falls Ihr aus Halle anreist und noch einen Platz im Auto frei habt oder braucht, tragt es gern im unteren Formular ein. So kann der Quizmaster mögliche Mitfahrgelegenheiten koordinieren.<br><br>Wer mit dem Zug kommt, fährt am besten bis Nauendorf. Von dort sind es mit dem Auto nur etwa fünf Minuten bis zum Vereinsgelände, sodass sich auch für diese kurze Strecke Mitfahrgelegenheiten organisieren lassen.",
         connections: [
           "Zug-Verbindung 1: Abfahrt: 14:12 · Halle(Saale)Hbf → Nauendorf(Saalkr) · Ankunft: 14:30",
           "Zug-Verbindung 2: Abfahrt: 14:49 · Halle(Saale)Hbf → Könnern · Ankunft: 15:09 | Abfahrt: 15:21 · Könnern → Nauendorf(Saalkr) · Ankunft: 15:30",

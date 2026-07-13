@@ -51,5 +51,5 @@ window.SiteConfig = {
     { href: "teams.html", label: "Sommerquiz-Profil" },
     { href: "faq.html", label: "FAQ" }
   ],
-  socialHint: "[...]",
+  socialHint: "Gut geraten ist halb gewusst.",
 };
