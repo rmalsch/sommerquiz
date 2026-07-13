@@ -15,7 +15,7 @@ Dieses Projekt ist eine statische, modulare Sommerquiz-Website für GitHub Pages
 1. `assets/data/site-config.js` enthält Branding, Eventdatum, Passwort, Navigation, Introtext und Footer-Hinweis.
 2. `assets/data/forms.js` enthält die Google-Apps-Script-`/exec`-URL, Formular-Modi, Remote-Formtypen und Meldungstexte.
 
-Der aktuelle Ablauf in `raetsel.html` erwartet ein Passwort mit genau sechs Zeichen. Nach Abschluss aller Spiele wird `accessPassword` aus `assets/data/site-config.js` angezeigt.
+Nach Abschluss aller Spiele wird `accessPassword` aus `assets/data/site-config.js` angezeigt. Die Passwortlänge ist dabei nicht fest vorgegeben.
 
 ## Inhalte pflegen
 - News: `assets/data/news.js`

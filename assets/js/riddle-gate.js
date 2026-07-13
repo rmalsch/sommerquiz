@@ -7,6 +7,7 @@
   const navigationPrevious = document.querySelector("[data-riddle-nav-prev]");
   const navigationNext = document.querySelector("[data-riddle-nav-next]");
   const configuredCode = String(window.SiteConfig?.accessPassword || "").trim();
+  const concealedCode = ".".repeat(Math.max(Array.from(configuredCode).length, 6));
   const completedSteps = new Set();
   let activeStep = 0;
 
@@ -829,7 +830,7 @@
       feedback.textContent = "";
       delete feedback.dataset.tone;
     });
-    if (revealedCode) revealedCode.textContent = "......";
+    if (revealedCode) revealedCode.textContent = concealedCode;
     resetSequence();
     buildMemory(false);
     resetTiming();
@@ -863,10 +864,6 @@
   navigationNext?.addEventListener("click", () => {
     navigateToStep(activeStep + 1);
   });
-
-  if (Array.from(configuredCode).length !== GAME_COUNT) {
-    console.warn(`Der Zugangscode sollte für diesen Rätselablauf genau ${GAME_COUNT} Zeichen lang sein.`);
-  }
 
   resetRiddle();
 })();

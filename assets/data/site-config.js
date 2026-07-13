@@ -8,7 +8,6 @@ window.SiteConfig = {
   accessPassword: "quizday",
   accessStorageKey: "sq_access_granted",
   introText: "Kaum zu glauben, aber wahr: Das Sommerquiz geht tatsächlich schon in die dritte Runde — das klingt langsam verdächtig nach Tradition! Und da wir diese Entwicklung nun natürlich nicht einfach abbrechen können, lade ich Euch auch dieses Jahr wieder herzlich ein.",
-  //"Ein Sommerabend wie ein kleiner Blockbuster: Teams, Snacks, Fragen und ein Countdown, der unaufhaltsam Richtung Quizbeginn läuft.",
   accessGrantedLabel: "Freigeschaltet",
   accessNextSteps: {
     title: "Was jetzt wichtig ist",
@@ -35,7 +34,7 @@ window.SiteConfig = {
     "Hast Du dich vertippt? Oder war das etwa Absicht?",
     "Hast Du einen schlechten Tag? Das Passwort ist leider falsch.",
     "Du bist hartnäckig. Aber leider auch erfolglos. Das Passwort ist falsch.",
-    "Ich bin verwundert. Das Passwort war Euch doch dieses Mal sogar gegeben!",
+    "Ich bin verwundert. Wieso probierst du es überhaupt noch?",
     "Was reimt sich auf MALSCH? Das eingegebene Passwort ist ...",
   ],
   publicNav: [
