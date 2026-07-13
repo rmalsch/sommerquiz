@@ -5,7 +5,7 @@ window.SiteConfig = {
   eventDate: "2026-08-01T16:00:00+02:00",
   eventAdmissionDate: "2026-08-01T15:00:00+02:00",
   eventLocation: "Hallesche Str. 777, 06198 Wettin-Löbejün",
-  accessPassword: "geheim",
+  accessPassword: "quizday",
   accessStorageKey: "sq_access_granted",
   introText: "Kaum zu glauben, aber wahr: Das Sommerquiz geht tatsächlich schon in die dritte Runde — das klingt langsam verdächtig nach Tradition! Und da wir diese Entwicklung nun natürlich nicht einfach abbrechen können, lade ich Euch auch dieses Jahr wieder herzlich ein.",
   //"Ein Sommerabend wie ein kleiner Blockbuster: Teams, Snacks, Fragen und ein Countdown, der unaufhaltsam Richtung Quizbeginn läuft.",
