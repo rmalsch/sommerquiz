@@ -48,7 +48,7 @@ Erwartete Sheet-Namen:
 - `faq_questions`
 - `pickup_requests`
 
-`team_profiles` erwartet die Spalten: Name, classic_knowledge, recognition, estimation_curiosity, patterns_puzzling, clue_combination, fine_motor_skills, movement_coordination, explain_coordinate, motivate_perform, Zeitstempel.
+`team_profiles` erwartet die Spalten: Zeitstempel, Name, classic_knowledge, recognition, estimation_curiosity, patterns_puzzling, clue_combination, fine_motor_skills, movement_coordination, explain_coordinate, motivate_perform.
 `faq_questions` erwartet die Spalten: Zeitstempel, Name, Frage.
 `pickup_requests` erwartet die Spalten: Zeitstempel, Name, Hinweis.
 

@@ -8,8 +8,47 @@
   const navigationNext = document.querySelector("[data-riddle-nav-next]");
   const configuredCode = String(window.SiteConfig?.accessPassword || "").trim();
   const concealedCode = ".".repeat(Math.max(Array.from(configuredCode).length, 6));
+  const progressStorageKey = String(window.SiteConfig?.riddleProgressStorageKey || "sq_riddle_progress_v1");
   const completedSteps = new Set();
   let activeStep = 0;
+
+  function loadProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(progressStorageKey) || "null");
+      if (!saved || !Array.isArray(saved.completedSteps)) return null;
+
+      const savedSteps = saved.completedSteps.filter((index) => (
+        Number.isInteger(index) && index >= 0 && index < GAME_COUNT
+      ));
+      const savedActiveStep = Number.isInteger(saved.activeStep) ? saved.activeStep : 0;
+
+      return {
+        completedSteps: [...new Set(savedSteps)],
+        activeStep: Math.max(0, Math.min(GAME_COUNT, savedActiveStep))
+      };
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function saveProgress() {
+    try {
+      localStorage.setItem(progressStorageKey, JSON.stringify({
+        completedSteps: [...completedSteps].sort((a, b) => a - b),
+        activeStep
+      }));
+    } catch (error) {
+      // Das Spiel bleibt auch ohne verfügbaren lokalen Speicher nutzbar.
+    }
+  }
+
+  function clearSavedProgress() {
+    try {
+      localStorage.removeItem(progressStorageKey);
+    } catch (error) {
+      // Das Zurücksetzen der laufenden Seite funktioniert trotzdem.
+    }
+  }
 
   function areAllGamesComplete() {
     return completedSteps.size === GAME_COUNT;
@@ -40,6 +79,7 @@
       navigationNext.disabled = index >= GAME_COUNT || (index === GAME_COUNT - 1 && !canOpenFinalScreen());
       navigationNext.classList.toggle("is-hidden", index >= GAME_COUNT);
     }
+    saveProgress();
   }
 
   function showFeedback(index, text, tone = "neutral") {
@@ -617,8 +657,9 @@
 
   const timingTracks = document.querySelector("[data-timing-tracks]");
   const timingToggle = document.querySelector("[data-timing-toggle]");
-  const timingTargets = [0.26, 0.17, 0.10];
-  const timingSpeeds = [3.2, 4.1, 5.2];
+  const isNarrowTimingScreen = window.matchMedia("(max-width: 720px)").matches;
+  const timingTargets = [0.26, 0.17, isNarrowTimingScreen ? 0.16 : 0.13];
+  const timingSpeeds = [3.2, 4.1, isNarrowTimingScreen ? 4.3 : 4.7];
   let timingFrame = null;
   let timingStartedAt = 0;
   let timingPosition = 0;
@@ -632,10 +673,13 @@
   }
 
   function createTimingCenters() {
+    const thirdRoundCenter = isNarrowTimingScreen
+      ? (Math.random() < 0.5 ? randomBetween(0.20, 0.33) : randomBetween(0.67, 0.80))
+      : (Math.random() < 0.5 ? randomBetween(0.15, 0.30) : randomBetween(0.70, 0.85));
     timingCenters = [
       randomBetween(0.32, 0.68),
       Math.random() < 0.5 ? randomBetween(0.17, 0.34) : randomBetween(0.66, 0.83),
-      Math.random() < 0.5 ? randomBetween(0.12, 0.29) : randomBetween(0.71, 0.88)
+      thirdRoundCenter
     ];
   }
 
@@ -730,7 +774,7 @@
   const slidePuzzle = document.querySelector("[data-slide-puzzle]");
   const slideStatus = document.querySelector("[data-slide-status]");
   const slideReset = document.querySelector("[data-slide-reset]");
-  const SLIDE_IMAGE = "assets/images/theme/logo-sq-4k-2.png";
+  const SLIDE_IMAGE = "assets/images/theme/logo-sq-web.jpg";
   const SLIDE_SIZE = 4;
   const SLIDE_TILE_COUNT = SLIDE_SIZE * SLIDE_SIZE;
   let slideBoard = [];
@@ -823,8 +867,7 @@
 
   slideReset?.addEventListener("click", resetSlidePuzzle);
 
-  function resetRiddle() {
-    completedSteps.clear();
+  function resetGameStates() {
     document.querySelectorAll("[data-riddle-feedback]").forEach((feedback) => {
       feedback.hidden = true;
       feedback.textContent = "";
@@ -837,7 +880,30 @@
     resetMastermind();
     resetWordle();
     resetSlidePuzzle();
+  }
+
+  function resetRiddle() {
+    completedSteps.clear();
+    clearSavedProgress();
+    resetGameStates();
     setStep(0);
+  }
+
+  function restoreRiddle() {
+    const savedProgress = loadProgress();
+    completedSteps.clear();
+    savedProgress?.completedSteps.forEach((index) => completedSteps.add(index));
+    resetGameStates();
+
+    if (areAllGamesComplete() && revealedCode) {
+      revealedCode.textContent = configuredCode || "Code fehlt in der Config";
+    }
+
+    const requestedStep = savedProgress?.activeStep || 0;
+    const initialStep = requestedStep === GAME_COUNT && !canOpenFinalScreen()
+      ? GAME_COUNT - 1
+      : requestedStep;
+    setStep(initialStep);
   }
 
   document.querySelector("[data-riddle-reset]")?.addEventListener("click", resetRiddle);
@@ -865,5 +931,5 @@
     navigateToStep(activeStep + 1);
   });
 
-  resetRiddle();
+  restoreRiddle();
 })();

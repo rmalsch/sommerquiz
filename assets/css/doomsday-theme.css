@@ -96,7 +96,7 @@
 }
 
 .theme-doom--full .brand__mark {
-  background: url("../images/theme/logo-sq-4k-2.png") center / 150% no-repeat, #0a1611;
+  background: url("../images/theme/logo-sq-web.jpg") center / 150% no-repeat, #0a1611;
   color: transparent;
   border: 1px solid rgba(53,240,154,0.25);
   box-shadow: 0 0 28px rgba(53,240,154,0.16);
@@ -375,7 +375,7 @@
   inset: -50%;
   background:
     radial-gradient(ellipse at center, rgba(53,240,154,0.20), transparent 54%),
-    url("../images/theme/logo-sq-4k-2.png") center / contain no-repeat;
+    url("../images/theme/logo-sq-web.jpg") center / contain no-repeat;
   opacity: 0.20;
   filter:
     drop-shadow(0 0 78px rgba(53,240,154,0.32))
@@ -452,6 +452,22 @@
 }
 
 @media (max-width: 760px) {
+  .theme-doom .site-header {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .theme-doom--counter-logo .hero__side::before {
+    inset: -24%;
+    filter: drop-shadow(0 0 36px rgba(53,240,154,0.24));
+    animation: none;
+  }
+
+  .theme-doom--counter-logo .countdown__item {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   .theme-doom .site-nav {
     background:
       linear-gradient(145deg, rgba(255,255,255,0.055), transparent 30%),

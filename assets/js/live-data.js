@@ -1,5 +1,10 @@
 (function () {
   const REFRESH_MS = 15000;
+  const RSVP_CACHE_KEY = 'sq_rsvp_total_persons_v1';
+  const BRING_CACHE_KEY = 'sq_bring_entries_v1';
+  const BRING_UNAVAILABLE_MESSAGE = 'Die Mitbringen-Liste konnte gerade nicht geladen werden. Falls sie partout auf keinem deiner Geräte erscheinen möchte, kontaktiere bitte den Quizmaster. Er kann dir den aktuellen Stand der Mitbringsel mitteilen.';
+  let rsvpRequestInFlight = false;
+  let bringRequestInFlight = false;
 
   function getEndpoint() {
     return window.FormConfig?.endpoint || '';
@@ -66,29 +71,154 @@
     });
   }
 
+  function fetchJson(action, extra = {}) {
+    if (!endpointReady()) return Promise.reject(new Error('missing-endpoint'));
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    return fetch(buildUrl(action, extra).toString(), {
+      cache: 'no-store',
+      headers: { Accept: 'application/json' },
+      signal: controller.signal,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`http-${response.status}`);
+        return response.json();
+      })
+      .finally(() => clearTimeout(timeoutId));
+  }
+
+  function requestLiveData(action, extra = {}) {
+    return fetchJson(action, extra).catch(() => jsonp(action, extra));
+  }
+
+  function getCachedRsvpTotal() {
+    try {
+      const cachedValue = localStorage.getItem(RSVP_CACHE_KEY);
+      if (cachedValue === null) return null;
+      const value = Number(cachedValue);
+      return Number.isFinite(value) && value >= 0 ? Math.trunc(value) : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function cacheRsvpTotal(value) {
+    try {
+      localStorage.setItem(RSVP_CACHE_KEY, String(value));
+    } catch (error) {
+      // Der Live-Zähler funktioniert auch ohne lokalen Speicher.
+    }
+  }
+
+  function showRsvpTotal(nodes, valueNodes, value, muted = false) {
+    nodes.forEach((node) => {
+      node.hidden = false;
+      node.classList.toggle('muted', muted);
+    });
+    valueNodes.forEach((node) => { node.textContent = String(value); });
+  }
+
   function renderRsvpInlineSummary() {
     const nodes = document.querySelectorAll('[data-rsvp-counter-inline]');
     if (!nodes.length) return;
     if (document.body.dataset.protected === 'true' && !document.body.classList.contains('has-access')) return;
 
     const valueNodes = document.querySelectorAll('[data-rsvp-counter-inline-value]');
+    const cachedTotal = getCachedRsvpTotal();
+    if (cachedTotal !== null) {
+      showRsvpTotal(nodes, valueNodes, cachedTotal);
+    }
+
     if (!endpointReady()) {
-      nodes.forEach((node) => { node.hidden = false; node.classList.add('muted'); });
-      valueNodes.forEach((node) => { node.textContent = '–'; });
+      if (cachedTotal === null) showRsvpTotal(nodes, valueNodes, 'einige', true);
+      return;
+    }
+    if (rsvpRequestInFlight) return;
+    rsvpRequestInFlight = true;
+
+    requestLiveData('rsvpSummary')
+      .then((result) => {
+        if (!result || !result.ok) throw new Error('invalid-response');
+        const totalPersons = Number(result.totalPersons);
+        if (!Number.isFinite(totalPersons) || totalPersons < 0) throw new Error('invalid-total');
+        const normalizedTotal = Math.trunc(totalPersons);
+        cacheRsvpTotal(normalizedTotal);
+        showRsvpTotal(nodes, valueNodes, normalizedTotal);
+      })
+      .catch(() => {
+        if (cachedTotal === null) showRsvpTotal(nodes, valueNodes, 'einige', true);
+      })
+      .finally(() => {
+        rsvpRequestInFlight = false;
+      });
+  }
+
+  function normalizeBringEntries(entries) {
+    if (!Array.isArray(entries)) return [];
+    return entries.map((entry) => ({
+      name: String(entry?.name || ''),
+      item: String(entry?.item || ''),
+      quantity: String(entry?.quantity || ''),
+    }));
+  }
+
+  function getCachedBringEntries() {
+    try {
+      const cachedValue = localStorage.getItem(BRING_CACHE_KEY);
+      if (cachedValue === null) return null;
+      const entries = JSON.parse(cachedValue);
+      return Array.isArray(entries) ? normalizeBringEntries(entries) : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function cacheBringEntries(entries) {
+    try {
+      localStorage.setItem(BRING_CACHE_KEY, JSON.stringify(entries));
+    } catch (error) {
+      // Die Live-Liste funktioniert auch ohne lokalen Speicher.
+    }
+  }
+
+  function showBringEntries(list, entries) {
+    list.innerHTML = '';
+    if (entries.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'info-block';
+      empty.innerHTML = '<strong>Noch nichts eingetragen</strong><p class="inline-note">Sobald die ersten Beiträge eingehen, erscheinen sie hier automatisch.</p>';
+      list.appendChild(empty);
       return;
     }
 
-    jsonp('rsvpSummary')
-      .then((result) => {
-        if (!result || !result.ok) throw new Error('invalid-response');
-        const totalPersons = Number(result.totalPersons || 0);
-        nodes.forEach((node) => { node.hidden = false; node.classList.remove('muted'); });
-        valueNodes.forEach((node) => { node.textContent = String(totalPersons); });
-      })
-      .catch(() => {
-        nodes.forEach((node) => { node.hidden = false; node.classList.add('muted'); });
-        valueNodes.forEach((node) => { node.textContent = '–'; });
-      });
+    entries.forEach((entry) => {
+      const item = document.createElement('div');
+      item.className = 'entry';
+
+      const header = document.createElement('div');
+      header.className = 'entry__header';
+
+      const title = document.createElement('div');
+      title.className = 'entry__title';
+      title.textContent = entry.item || 'Unbenannter Beitrag';
+      header.appendChild(title);
+
+      if (entry.quantity) {
+        const quantity = document.createElement('div');
+        quantity.className = 'entry__quantity';
+        quantity.textContent = entry.quantity;
+        header.appendChild(quantity);
+      }
+
+      const meta = document.createElement('div');
+      meta.className = 'entry__meta';
+      meta.textContent = entry.name || 'Unbekannt';
+
+      item.appendChild(header);
+      item.appendChild(meta);
+      list.appendChild(item);
+    });
   }
 
   function renderBringList() {
@@ -98,63 +228,44 @@
     if (!list) return;
     if (document.body.dataset.protected === 'true' && !document.body.classList.contains('has-access')) return;
 
+    const cachedEntries = getCachedBringEntries();
+    if (cachedEntries !== null) {
+      showBringEntries(list, cachedEntries);
+      if (loading) loading.hidden = true;
+      if (error) error.hidden = true;
+    }
+
     if (!endpointReady()) {
       if (loading) loading.hidden = true;
-      if (error) {
+      if (error && cachedEntries === null) {
         error.hidden = false;
-        error.textContent = 'Die aktuellen Daten sind gerade nicht verfügbar.';
+        error.textContent = BRING_UNAVAILABLE_MESSAGE;
       }
       return;
     }
+    if (bringRequestInFlight) return;
+    bringRequestInFlight = true;
 
-    if (loading) loading.hidden = false;
+    if (loading) loading.hidden = cachedEntries !== null;
     if (error) error.hidden = true;
 
-    jsonp('bringList')
+    requestLiveData('bringList')
       .then((result) => {
         if (!result || !result.ok) throw new Error('invalid-response');
-        const entries = Array.isArray(result.entries) ? result.entries : [];
+        const entries = normalizeBringEntries(result.entries);
+        cacheBringEntries(entries);
         if (loading) loading.hidden = true;
-        list.innerHTML = '';
-        if (entries.length === 0) {
-          const empty = document.createElement('div');
-          empty.className = 'info-block';
-          empty.innerHTML = '<strong>Noch nichts eingetragen</strong><p class="inline-note">Sobald die ersten Beiträge eingehen, erscheinen sie hier automatisch.</p>';
-          list.appendChild(empty);
-          return;
-        }
-
-        entries.forEach((entry) => {
-          const item = document.createElement('div');
-          item.className = 'entry';
-
-          const header = document.createElement('div');
-          header.className = 'entry__header';
-
-          const title = document.createElement('div');
-          title.className = 'entry__title';
-          title.textContent = entry.item || 'Unbenannter Beitrag';
-          header.appendChild(title);
-
-          if (entry.quantity) {
-            const quantity = document.createElement('div');
-            quantity.className = 'entry__quantity';
-            quantity.textContent = entry.quantity;
-            header.appendChild(quantity);
-          }
-
-          const meta = document.createElement('div');
-          meta.className = 'entry__meta';
-          meta.textContent = entry.name || 'Unbekannt';
-
-          item.appendChild(header);
-          item.appendChild(meta);
-          list.appendChild(item);
-        });
+        showBringEntries(list, entries);
       })
       .catch(() => {
         if (loading) loading.hidden = true;
-        if (error) error.hidden = false;
+        if (error && cachedEntries === null) {
+          error.hidden = false;
+          error.textContent = BRING_UNAVAILABLE_MESSAGE;
+        }
+      })
+      .finally(() => {
+        bringRequestInFlight = false;
       });
   }
 

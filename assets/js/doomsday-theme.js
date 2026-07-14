@@ -3,7 +3,8 @@
 
   function createParticles() {
     if (!particleRoot) return;
-    const particleCount = window.matchMedia("(max-width: 760px)").matches ? 34 : 70;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const particleCount = window.matchMedia("(max-width: 760px)").matches ? 14 : 70;
 
     for (let index = 0; index < particleCount; index += 1) {
       const particle = document.createElement("span");

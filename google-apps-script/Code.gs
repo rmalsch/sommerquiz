@@ -136,6 +136,7 @@ function writeRow_(formType, data) {
       break;
     case 'team_profiles':
       sheet.appendRow([
+        timestamp,
         data.name,
         data.classic_knowledge,
         data.recognition,
@@ -146,7 +147,6 @@ function writeRow_(formType, data) {
         data.movement_coordination,
         data.explain_coordinate,
         data.motivate_perform,
-        timestamp,
       ]);
       break;
     case 'faq_questions':

@@ -7,6 +7,7 @@ window.SiteConfig = {
   eventLocation: "Hallesche Str. 777, 06198 Wettin-Löbejün",
   accessPassword: "quizday",
   accessStorageKey: "sq_access_granted",
+  riddleProgressStorageKey: "sq_riddle_progress_v1",
   introText: "Kaum zu glauben, aber wahr: Das Sommerquiz geht tatsächlich schon in die dritte Runde — das klingt langsam verdächtig nach Tradition! Und da wir diese Entwicklung nun natürlich nicht einfach abbrechen können, lade ich Euch auch dieses Jahr wieder herzlich ein.",
   accessGrantedLabel: "Freigeschaltet",
   accessNextSteps: {
