@@ -227,6 +227,11 @@
   gap: 0.6rem;
 }
 
+.memory-loading {
+  min-height: 1.5rem;
+  margin: 0;
+}
+
 .memory-meta,
 .puzzle-meta {
   display: flex;
@@ -245,6 +250,10 @@
   padding: 0.4rem;
   cursor: pointer;
   overflow: hidden;
+}
+
+.memory-card:disabled {
+  cursor: wait;
 }
 
 .memory-card::before {

@@ -542,17 +542,18 @@
   const memoryGrid = document.querySelector("[data-memory-grid]");
   const memoryScore = document.querySelector("[data-memory-score]");
   const memoryReset = document.querySelector("[data-memory-reset]");
+  const memoryLoading = document.querySelector("[data-memory-loading]");
   const MEMORY_MAX_MOVES = 16;
   const memoryItems = [
-    { id: "vier-gewinnt", src: "assets/images/sq2025/presentation-assets/4gewinnt.png", alt: "Vier gewinnt" },
-    { id: "buzzer", src: "assets/images/sq2025/presentation-assets/Buzzer.png", alt: "Buzzer" },
-    { id: "hut", src: "assets/images/sq2025/presentation-assets/Hut.png", alt: "Hut" },
-    { id: "joker", src: "assets/images/sq2025/presentation-assets/Joker.png", alt: "Joker" },
-    { id: "musik", src: "assets/images/sq2025/presentation-assets/Musik.png", alt: "Musik" },
-    { id: "pfote", src: "assets/images/sq2025/presentation-assets/Pfote.png", alt: "Pfote" },
-    { id: "raetsel", src: "assets/images/sq2025/presentation-assets/Rätsel.png", alt: "Rätsel" },
-    { id: "sonne", src: "assets/images/sq2025/presentation-assets/Sonne.png", alt: "Sonne" },
-    { id: "whiteboard", src: "assets/images/sq2025/presentation-assets/Whiteboard.png", alt: "Whiteboard" }
+    { id: "vier-gewinnt", src: "assets/images/sq2025/memory/vier-gewinnt.png", alt: "Vier gewinnt" },
+    { id: "buzzer", src: "assets/images/sq2025/memory/buzzer.png", alt: "Buzzer" },
+    { id: "hut", src: "assets/images/sq2025/memory/hut.png", alt: "Hut" },
+    { id: "joker", src: "assets/images/sq2025/memory/joker.png", alt: "Joker" },
+    { id: "musik", src: "assets/images/sq2025/memory/musik.png", alt: "Musik" },
+    { id: "pfote", src: "assets/images/sq2025/memory/pfote.png", alt: "Pfote" },
+    { id: "raetsel", src: "assets/images/sq2025/memory/raetsel.png", alt: "Rätsel" },
+    { id: "sonne", src: "assets/images/sq2025/memory/sonne.png", alt: "Sonne" },
+    { id: "whiteboard", src: "assets/images/sq2025/memory/whiteboard.png", alt: "Whiteboard" }
   ];
   let openCards = [];
   let matchedPairs = 0;
@@ -561,6 +562,9 @@
   let memoryRestartTimer = null;
   let memoryPeekTimer = null;
   let memoryTurnTimer = null;
+  let memoryAssetsPromise = null;
+  let memoryAssetsReady = false;
+  let memoryBuildToken = 0;
 
   function shuffle(items) {
     const result = [...items];
@@ -575,6 +579,55 @@
     if (memoryScore) memoryScore.textContent = `${memoryMoves} / ${MEMORY_MAX_MOVES} Züge`;
   }
 
+  function setMemoryLoadingText(text) {
+    if (!memoryLoading) return;
+    memoryLoading.hidden = false;
+    memoryLoading.textContent = text;
+  }
+
+  function loadMemoryImage(item, retriesLeft = 2) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => {
+        if (typeof image.decode !== "function") {
+          resolve();
+          return;
+        }
+        image.decode().then(resolve).catch(resolve);
+      };
+      image.onerror = () => reject(new Error(`memory-image-failed:${item.id}`));
+      image.src = item.src;
+    }).catch((error) => {
+      if (retriesLeft <= 0) throw error;
+      return new Promise((resolve) => window.setTimeout(resolve, 1200))
+        .then(() => loadMemoryImage(item, retriesLeft - 1));
+    });
+  }
+
+  function preloadMemoryAssets() {
+    if (memoryAssetsReady) return Promise.resolve();
+    if (memoryAssetsPromise) return memoryAssetsPromise;
+
+    let loadedCount = 0;
+    setMemoryLoadingText(`Motive werden geladen: ${loadedCount} von ${memoryItems.length}.`);
+    memoryAssetsPromise = Promise.all(memoryItems.map((item) => (
+      loadMemoryImage(item).then(() => {
+        loadedCount += 1;
+        setMemoryLoadingText(`Motive werden geladen: ${loadedCount} von ${memoryItems.length}.`);
+      })
+    )))
+      .then(() => {
+        memoryAssetsReady = true;
+      })
+      .catch((error) => {
+        memoryAssetsPromise = null;
+        setMemoryLoadingText("Die Motive konnten noch nicht vollständig geladen werden. Tippe auf „Neu mischen“, um es erneut zu versuchen.");
+        throw error;
+      });
+
+    return memoryAssetsPromise;
+  }
+
   function buildMemory(showShuffleFlash = true) {
     if (!memoryGrid) return;
     window.clearTimeout(memoryRestartTimer);
@@ -583,6 +636,8 @@
     matchedPairs = 0;
     memoryMoves = 0;
     memoryLocked = true;
+    memoryBuildToken += 1;
+    const buildToken = memoryBuildToken;
     openCards = [];
     hideFeedback(0);
     updateMemoryScore();
@@ -594,15 +649,28 @@
       button.dataset.memoryId = item.id;
       button.dataset.memoryIndex = String(index);
       button.setAttribute("aria-label", "Verdeckte Memory-Karte");
-      button.innerHTML = `<img class="${item.imageClass || ""}" src="${item.src}" alt="${item.alt}" loading="lazy" />`;
+      button.disabled = !memoryAssetsReady;
+      button.innerHTML = `<img class="${item.imageClass || ""}" src="${item.src}" alt="${item.alt}" loading="eager" decoding="async" draggable="false" />`;
       if (showShuffleFlash) button.classList.add("is-shuffle-flash");
       memoryGrid.appendChild(button);
     });
-    const unlockDelay = showShuffleFlash ? 650 : 0;
-    memoryPeekTimer = window.setTimeout(() => {
-      memoryGrid.querySelectorAll(".memory-card.is-shuffle-flash").forEach((card) => card.classList.remove("is-shuffle-flash"));
-      memoryLocked = false;
-    }, unlockDelay);
+    preloadMemoryAssets()
+      .then(() => {
+        if (buildToken !== memoryBuildToken) return;
+        const unlockDelay = showShuffleFlash ? 650 : 0;
+        memoryPeekTimer = window.setTimeout(() => {
+          if (buildToken !== memoryBuildToken) return;
+          memoryGrid.querySelectorAll(".memory-card.is-shuffle-flash").forEach((card) => card.classList.remove("is-shuffle-flash"));
+          memoryGrid.querySelectorAll(".memory-card").forEach((card) => { card.disabled = false; });
+          memoryLocked = false;
+          if (memoryLoading) memoryLoading.hidden = true;
+        }, unlockDelay);
+      })
+      .catch(() => {
+        if (buildToken !== memoryBuildToken) return;
+        memoryGrid.querySelectorAll(".memory-card.is-shuffle-flash").forEach((card) => card.classList.remove("is-shuffle-flash"));
+        memoryLocked = true;
+      });
   }
 
   function restartMemoryAfterLimit() {
