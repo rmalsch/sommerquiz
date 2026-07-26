@@ -184,7 +184,16 @@ function getRsvpSummary_() {
 
   values.forEach(function(row) {
     const names = row[1];
-    const personCount = Number(row[2]) || countPersons_(names);
+    const rawPersonCount = row[2];
+    const parsedPersonCount = Number(rawPersonCount);
+    const hasValidPersonCount = rawPersonCount !== ''
+      && rawPersonCount !== null
+      && rawPersonCount !== undefined
+      && Number.isFinite(parsedPersonCount)
+      && parsedPersonCount >= 0;
+    const personCount = hasValidPersonCount
+      ? Math.trunc(parsedPersonCount)
+      : countPersons_(names);
     const hasContent = String(names || '').trim().length > 0;
     if (hasContent) {
       totalEntries += 1;
