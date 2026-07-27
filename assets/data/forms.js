@@ -1,6 +1,6 @@
 window.FormConfig = {
   // Google-Apps-Script-/exec-URL für Formularübertragung und Live-Daten.
-  endpoint: "https://script.google.com/macros/s/AKfycbxGLPSJfx3BvUpDK8SPp7etalyeEODITeTjxWAK4vuptnLbPO_zR7hUjI2TeDThZun8/exec",
+  endpoint: "https://script.google.com/macros/s/AKfycbx8A8h67ZlhpjKsAwlM_j1xqUa4wBJvJv3OUEakn9GL8HnUv_GTZnEuHimaCKade1po/exec",
 
   modes: {
     rsvp: "remote",

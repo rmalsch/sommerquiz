@@ -19,6 +19,7 @@ window.SiteConfig = {
       { href: "bring.html", label: "Mitbringen" },
       { href: "teams.html", label: "Sommerquiz-Profil" }
     ],
+    compactAfterText: "Auch in den weiteren Menüpunkten gibt es einiges zu entdecken – darunter Hinweise auf mögliche Bonuspunkte.",
     items: [
       { href: "rsvp.html", label: "Zusage", text: "Wenn du beim Sommerquiz dabei sein möchtest, trage dich bitte zuerst hier ein.", important: true },
       { href: "teams.html", label: "Sommerquiz-Profil", text: "Fülle dein Sommerquiz-Profil aus. Das ist bestimmt für nichts Wichtiges relevant und wird ganz sicher nicht später in irgendeine mysteriöse Teamlogik einfließen." , important: true },

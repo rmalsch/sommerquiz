@@ -103,6 +103,9 @@
         });
         root.classList.add("is-compact");
         root.append(text, links);
+        if (config.compactAfterText) {
+          root.appendChild(el("p", { text: config.compactAfterText }));
+        }
         return;
       }
 
