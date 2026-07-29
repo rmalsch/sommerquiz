@@ -68,7 +68,7 @@
 
   const GRIDS = {
     1: { columns: 2, rows: 2, label: "2 × 2" },
-    2: { columns: 5, rows: 5, label: "5 × 5" },
+    2: { columns: 6, rows: 6, label: "6 × 6" },
     3: { columns: 10, rows: 10, label: "10 × 10" },
   };
 
