@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Schiffe versenken · Sommerquiz</title>
-  <link rel="stylesheet" href="assets/styles.css?v=20260729-14" />
+  <link rel="stylesheet" href="assets/styles.css?v=20260729-15" />
 </head>
 <body>
   <header class="app-bar">
@@ -16,10 +16,6 @@
         <h1>Schiffe versenken</h1>
       </div>
     </div>
-    <div class="app-bar__status" aria-live="polite">
-      <span class="status-dot"></span>
-      <span data-render-status>Kartendaten werden geladen</span>
-    </div>
   </header>
 
   <main class="workspace">
@@ -28,22 +24,6 @@
       <section class="control-section control-section--primary">
         <div class="control-heading">
           <span>01</span>
-          <h2>Kartenausschnitt</h2>
-        </div>
-        <div class="segmented segmented--maps" data-map-options aria-label="Kartenausschnitt">
-          <button type="button" data-map="germany">Deutschland</button>
-          <button type="button" data-map="europe">Europa</button>
-          <button type="button" data-map="africa">Afrika</button>
-          <button type="button" data-map="asia">Asien</button>
-          <button type="button" data-map="north-america">Nordamerika</button>
-          <button type="button" data-map="south-america">Südamerika</button>
-          <button type="button" data-map="oceania">Ozeanien</button>
-        </div>
-      </section>
-
-      <section class="control-section control-section--primary">
-        <div class="control-heading">
-          <span>02</span>
           <h2>Rastergröße</h2>
         </div>
         <div class="segmented segmented--levels" data-grid-options aria-label="Rastergröße">
@@ -68,6 +48,22 @@
           </div>
         </div>
         <button class="zoom-center" type="button" data-pan-reset disabled>Ausschnitt zentrieren</button>
+      </section>
+
+      <section class="control-section control-section--primary">
+        <div class="control-heading">
+          <span>02</span>
+          <h2>Kartenausschnitt</h2>
+        </div>
+        <div class="segmented segmented--maps" data-map-options aria-label="Kartenausschnitt">
+          <button type="button" data-map="germany">Deutschland</button>
+          <button type="button" data-map="europe">Europa</button>
+          <button type="button" data-map="africa">Afrika</button>
+          <button type="button" data-map="asia">Asien</button>
+          <button type="button" data-map="north-america">Nordamerika</button>
+          <button type="button" data-map="south-america">Südamerika</button>
+          <button type="button" data-map="oceania">Ozeanien</button>
+        </div>
       </section>
       </div>
 
@@ -182,6 +178,6 @@
   </main>
 
   <script src="assets/vendor/d3.v7.min.js"></script>
-  <script src="assets/app.js?v=20260729-15"></script>
+  <script src="assets/app.js?v=20260729-16"></script>
 </body>
 </html>

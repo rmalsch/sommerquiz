@@ -101,22 +101,6 @@ summary:focus-visible {
   text-transform: uppercase;
 }
 
-.app-bar__status {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(53, 240, 154, 0.62);
-}
-
 .workspace {
   display: grid;
   min-height: calc(100vh - 78px);
@@ -786,11 +770,6 @@ summary:focus-visible {
 @media (max-width: 560px) {
   .app-bar {
     align-items: flex-start;
-  }
-
-  .app-bar__status {
-    max-width: 9rem;
-    text-align: right;
   }
 
   .segmented button {

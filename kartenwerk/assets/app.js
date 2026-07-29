@@ -84,7 +84,6 @@
     grid: document.querySelector("[data-grid-layer]"),
     marker: document.querySelector("[data-marker-layer]"),
     loading: document.querySelector("[data-stage-loading]"),
-    status: document.querySelector("[data-render-status]"),
     mapButtons: Array.from(document.querySelectorAll("[data-map]")),
     gridButtons: Array.from(document.querySelectorAll("[data-grid]")),
     zoomOut: document.querySelector("[data-zoom-out]"),
@@ -436,7 +435,6 @@
     renderMarker();
     renderAnswers();
     updateUrl();
-    elements.status.textContent = `${MAPS[state.map].label} · ${GRIDS[state.grid].label} · ${Math.round(state.zoom * 100)} %`;
   }
 
   function setFeedback(message) {
@@ -666,11 +664,9 @@
       if (!countriesResponse.ok) throw new Error("Kartendaten nicht erreichbar");
       state.countriesData = await countriesResponse.json();
       elements.loading.hidden = true;
-      elements.status.textContent = "Kartendaten bereit";
       render();
     } catch (error) {
       elements.loading.querySelector("p").textContent = "Kartendaten konnten nicht geladen werden";
-      elements.status.textContent = "Fehler beim Laden";
     }
   }
 
