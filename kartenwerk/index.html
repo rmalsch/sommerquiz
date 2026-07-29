@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Schiffe versenken · Sommerquiz</title>
+  <link rel="stylesheet" href="assets/styles.css?v=20260729-14" />
+</head>
+<body>
+  <header class="app-bar">
+    <div class="app-brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <span class="eyebrow">Sommerquiz · Kartenwerkzeug</span>
+        <h1>Schiffe versenken</h1>
+      </div>
+    </div>
+    <div class="app-bar__status" aria-live="polite">
+      <span class="status-dot"></span>
+      <span data-render-status>Kartendaten werden geladen</span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="control-panel" aria-label="Karteneinstellungen">
+      <div class="primary-controls">
+      <section class="control-section control-section--primary">
+        <div class="control-heading">
+          <span>01</span>
+          <h2>Kartenausschnitt</h2>
+        </div>
+        <div class="segmented segmented--maps" data-map-options aria-label="Kartenausschnitt">
+          <button type="button" data-map="germany">Deutschland</button>
+          <button type="button" data-map="europe">Europa</button>
+          <button type="button" data-map="africa">Afrika</button>
+          <button type="button" data-map="asia">Asien</button>
+          <button type="button" data-map="north-america">Nordamerika</button>
+          <button type="button" data-map="south-america">Südamerika</button>
+          <button type="button" data-map="oceania">Ozeanien</button>
+        </div>
+      </section>
+
+      <section class="control-section control-section--primary">
+        <div class="control-heading">
+          <span>02</span>
+          <h2>Rastergröße</h2>
+        </div>
+        <div class="segmented segmented--levels" data-grid-options aria-label="Rastergröße">
+          <button type="button" data-grid="1">
+            <strong>2 × 2</strong>
+          </button>
+          <button type="button" data-grid="2">
+            <strong>5 × 5</strong>
+          </button>
+          <button type="button" data-grid="3">
+            <strong>10 × 10</strong>
+          </button>
+        </div>
+        <div class="zoom-control">
+          <span>Kartenzoom</span>
+          <div class="zoom-control__buttons" aria-label="Kartenzoom">
+            <button type="button" data-zoom-out aria-label="Herauszoomen" title="Herauszoomen">−</button>
+            <button type="button" class="zoom-control__value" data-zoom-reset title="Zoom zurücksetzen">
+              <span data-zoom-value>100 %</span>
+            </button>
+            <button type="button" data-zoom-in aria-label="Hineinzoomen" title="Hineinzoomen">+</button>
+          </div>
+        </div>
+        <button class="zoom-center" type="button" data-pan-reset disabled>Ausschnitt zentrieren</button>
+      </section>
+      </div>
+
+      <details class="director-tools">
+        <summary>
+          <span>Weitere Werkzeuge</span>
+          <span class="director-tools__chevron" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="director-tools__content">
+      <section class="control-section">
+        <div class="control-heading">
+          <span>03</span>
+          <h2>Auflösung vorbereiten</h2>
+        </div>
+        <div class="coordinate-fields">
+          <label class="field">
+            <span>Bezeichnung (optional)</span>
+            <input type="text" data-custom-name placeholder="Zielpunkt" />
+          </label>
+          <div class="field-pair">
+            <label class="field">
+              <span>Breitengrad</span>
+              <input type="number" data-custom-lat min="-90" max="90" step="0.0001" placeholder="52.5200" />
+            </label>
+            <label class="field">
+              <span>Längengrad</span>
+              <input type="number" data-custom-lon min="-180" max="180" step="0.0001" placeholder="13.4050" />
+            </label>
+          </div>
+          <button class="button button--quiet" type="button" data-apply-custom>Koordinaten übernehmen</button>
+        </div>
+        <label class="switch-row">
+          <span>
+            <strong>Ort markieren</strong>
+            <small>Marker nur in der Auflösung anzeigen</small>
+          </span>
+          <input type="checkbox" data-reveal-toggle />
+        </label>
+      </section>
+
+      <section class="control-section answer-panel" aria-labelledby="answer-heading">
+        <div class="control-heading">
+          <span>04</span>
+          <h2 id="answer-heading">Regieübersicht</h2>
+        </div>
+        <div class="answer-location">
+          <span>Aktueller Zielort</span>
+          <strong data-place-name>–</strong>
+        </div>
+        <dl class="answer-codes" data-answer-codes>
+          <div><dt>2 × 2</dt><dd>–</dd></div>
+          <div><dt>5 × 5</dt><dd>–</dd></div>
+          <div><dt>10 × 10</dt><dd>–</dd></div>
+        </dl>
+        <p class="selected-cell">Angeklicktes Feld: <strong data-selected-cell>keins</strong></p>
+      </section>
+
+      <section class="control-section control-section--actions">
+        <div class="control-heading">
+          <span>05</span>
+          <h2>Ausgabe</h2>
+        </div>
+        <div class="action-grid">
+          <button class="button" type="button" data-export-png>PNG · <span data-png-size>3200 × 1800</span></button>
+        </div>
+        <p class="action-feedback" data-action-feedback aria-live="polite"></p>
+      </section>
+        </div>
+      </details>
+    </aside>
+
+    <section class="stage-area" aria-label="Kartendarstellung">
+      <div class="stage-frame">
+        <svg
+          class="map-stage"
+          data-map-stage
+          viewBox="0 0 1600 900"
+          role="img"
+          aria-labelledby="map-title map-description"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title id="map-title">Unbeschriftete Quizkarte mit Koordinatenraster</title>
+          <desc id="map-description">Die Karte zeigt den gewählten Kartenausschnitt und das gewählte Raster.</desc>
+          <defs>
+            <pattern id="oceanTexture" width="18" height="18" patternUnits="userSpaceOnUse">
+              <path d="M0 17.5H18" class="texture-line"></path>
+              <path d="M17.5 0V18" class="texture-line texture-line--faint"></path>
+            </pattern>
+            <filter id="markerShadow" x="-100%" y="-100%" width="300%" height="300%">
+              <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#07100f" flood-opacity="0.75"></feDropShadow>
+            </filter>
+            <clipPath id="stageClip">
+              <rect data-stage-clip width="1600" height="900"></rect>
+            </clipPath>
+          </defs>
+          <rect class="ocean" data-stage-background width="1600" height="900"></rect>
+          <rect class="ocean-texture" data-stage-background width="1600" height="900"></rect>
+          <g data-zoom-layer>
+            <g class="geography" clip-path="url(#stageClip)">
+              <g data-country-layer></g>
+            </g>
+            <g class="grid-layer" data-grid-layer></g>
+            <g class="target-marker is-hidden" data-marker-layer></g>
+          </g>
+        </svg>
+        <div class="stage-loading" data-stage-loading>
+          <span></span>
+          <p>Karte wird aufgebaut</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/vendor/d3.v7.min.js"></script>
+  <script src="assets/app.js?v=20260729-15"></script>
+</body>
+</html>

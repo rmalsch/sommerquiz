@@ -360,6 +360,20 @@
   text-shadow: 0 0 12px rgba(53,240,154,0.16);
 }
 
+.theme-doom .event-location-map-link {
+  color: rgba(183, 255, 217, 0.48);
+}
+
+.theme-doom .event-location-map-link:hover,
+.theme-doom .event-location-map-link:focus-visible {
+  color: #c8ffe1;
+  border-color: rgba(53, 240, 154, 0.32);
+  background: rgba(53, 240, 154, 0.08);
+  box-shadow:
+    inset 0 0 14px rgba(53, 240, 154, 0.08),
+    0 0 18px rgba(53, 240, 154, 0.12);
+}
+
 .theme-doom--counter-logo .hero__side {
   position: relative;
   overflow: hidden;

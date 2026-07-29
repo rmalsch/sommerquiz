@@ -344,6 +344,52 @@ button.button:hover {
   font-weight: 800;
 }
 
+.event-briefing__grid .event-location-card {
+  position: relative;
+  padding-right: 3.8rem;
+}
+
+.event-location-map-link {
+  position: absolute;
+  top: 50%;
+  right: 0.55rem;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-radius: 50%;
+  opacity: 0.48;
+  transform: translateY(-50%);
+  transition:
+    color 160ms ease,
+    opacity 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.event-location-map-link svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.event-location-map-link:hover,
+.event-location-map-link:focus-visible {
+  color: var(--accent);
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.36);
+  opacity: 1;
+  outline: none;
+  transform: translateY(-50%) rotate(8deg);
+}
+
 .page-intro {
   margin-bottom: 1rem;
 }
