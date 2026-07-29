@@ -92,6 +92,7 @@
     zoomValue: document.querySelector("[data-zoom-value]"),
     panReset: document.querySelector("[data-pan-reset]"),
     revealToggle: document.querySelector("[data-reveal-toggle]"),
+    gridToggle: document.querySelector("[data-grid-toggle]"),
     placeName: document.querySelector("[data-place-name]"),
     answerCodes: Array.from(document.querySelectorAll("[data-answer-codes] dd")),
     selectedCell: document.querySelector("[data-selected-cell]"),
@@ -112,6 +113,7 @@
     panY: 0,
     customPlace: null,
     reveal: false,
+    gridVisible: true,
     selectedCell: "",
     countriesData: null,
     projection: null,
@@ -123,6 +125,7 @@
     const params = new URLSearchParams(window.location.search);
     if (MAPS[params.get("map")]) state.map = params.get("map");
     if (GRIDS[Number(params.get("grid"))]) state.grid = Number(params.get("grid"));
+    if (params.get("raster") === "off") state.gridVisible = false;
     const zoom = Number(params.get("zoom"));
     if (Number.isFinite(zoom) && zoom >= ZOOM.min && zoom <= ZOOM.max) state.zoom = zoom;
     const panX = Number(params.get("panX"));
@@ -273,6 +276,7 @@
 
   function renderGrid() {
     clearNode(elements.grid);
+    if (!state.gridVisible) return;
     const grid = GRIDS[state.grid];
     const { width, height } = getStageSize();
     const cellWidth = width / grid.columns;
@@ -410,6 +414,7 @@
       button.setAttribute("aria-pressed", String(active));
     });
     elements.revealToggle.checked = state.reveal;
+    elements.gridToggle.checked = state.gridVisible;
     elements.zoomValue.textContent = `${Math.round(state.zoom * 100)} %`;
     elements.zoomOut.disabled = state.zoom <= ZOOM.min;
     elements.zoomIn.disabled = state.zoom >= ZOOM.max;
@@ -421,6 +426,7 @@
     const params = new URLSearchParams();
     params.set("map", state.map);
     params.set("grid", String(state.grid));
+    if (!state.gridVisible) params.set("raster", "off");
     if (state.zoom !== 1) params.set("zoom", String(state.zoom));
     if (state.panX !== 0) params.set("panX", String(Math.round(state.panX * 10) / 10));
     if (state.panY !== 0) params.set("panY", String(Math.round(state.panY * 10) / 10));
@@ -459,7 +465,9 @@
     const parts = [
       "schiffe-versenken",
       MAPS[state.map].label,
-      `raster-${GRIDS[state.grid].columns}x${GRIDS[state.grid].rows}`,
+      state.gridVisible
+        ? `raster-${GRIDS[state.grid].columns}x${GRIDS[state.grid].rows}`
+        : "ohne-raster",
       state.reveal && place ? place.name : "spielansicht",
     ];
     return `${sanitizeFilename(parts.join("-"))}.${extension}`;
@@ -644,6 +652,11 @@
     elements.revealToggle.addEventListener("change", () => {
       state.reveal = elements.revealToggle.checked;
       renderMarker();
+    });
+
+    elements.gridToggle.addEventListener("change", () => {
+      state.gridVisible = elements.gridToggle.checked;
+      render();
     });
 
     elements.zoomOut.addEventListener("click", () => setZoom(state.zoom - ZOOM.step));
