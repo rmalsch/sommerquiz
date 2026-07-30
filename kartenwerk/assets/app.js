@@ -23,13 +23,6 @@
         || ["TUR", "CYP"].includes(feature.properties.ADM0_A3)
       ),
     },
-    africa: {
-      label: "Afrika",
-      bounds: [-19, -36, 53, 38],
-      stage: { width: 900, height: 1000 },
-      margin: 30,
-      featureFilter: (feature) => feature.properties.CONTINENT === "Africa",
-    },
     asia: {
       label: "Asien",
       projection: "natural",
@@ -45,24 +38,6 @@
       margin: 32,
       rotate: [100, 0],
       featureFilter: (feature) => feature.properties.CONTINENT === "North America",
-    },
-    "south-america": {
-      label: "Südamerika",
-      bounds: [-83, -56, -33, 14],
-      stage: { width: 760, height: 1000 },
-      margin: 30,
-      featureFilter: (feature) => feature.properties.CONTINENT === "South America",
-    },
-    oceania: {
-      label: "Ozeanien",
-      bounds: [108, -50, 190, 12],
-      stage: { width: 1100, height: 900 },
-      margin: 32,
-      rotate: [-160, 0],
-      featureFilter: (feature) => (
-        feature.properties.CONTINENT === "Oceania"
-        || ["IDN", "TLS", "MYS", "BRN", "PHL"].includes(feature.properties.ADM0_A3)
-      ),
     },
   };
 

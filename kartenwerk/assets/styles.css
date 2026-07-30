@@ -286,9 +286,7 @@ summary:focus-visible {
   border-right: 0;
 }
 
-.segmented--maps button:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  border-right: 0;
+.segmented--maps button:nth-last-child(-n + 2) {
   border-bottom: 0;
 }
 
